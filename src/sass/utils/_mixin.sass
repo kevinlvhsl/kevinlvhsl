@@ -1,0 +1,97 @@
+@mixin bg($width, $height, $url)
+    width: r($width)
+    height: r($height)
+    background:
+        image: url($url)
+        repeat: no-repeat
+        position: center
+        size: 100% auto
+@mixin scroll($top, $bottom)
+    position: absolute
+    top: $top
+    bottom: $bottom
+    left: 0
+    width: 100%
+    overflow-x: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+@mixin poc($top, $width)
+    position: absolute
+    top: $top + 0px
+    left: (640px - $width) / 4
+@mixin loopPos($canvas-width, $canvas-height, $cont-x, $cont-y, $out-margin, $point-size)
+    $margin-x: ($canvas-width - $cont-x * $point-size - $out-margin * 2) / ($cont-x - 1)
+    $margin-y: ($canvas-height - $cont-y * $point-size - $out-margin * 2) / ($cont-y - 1)
+    position: absolute
+    top: $out-margin
+    left: $out-margin
+    width: $canvas-width - $out-margin * 2
+    height: $canvas-height - $out-margin * 2
+    i
+        position: absolute
+        width: $point-size
+        height: $point-size
+        // top
+        @for $i from 1 through $cont-x
+            &:nth-child(#{$i})
+                left: ($margin-x + $point-size) * ($i - 1)
+                top: 0
+        // right
+        @for $i from ($cont-x + 1) through ($cont-x + $cont-y - 2)
+            &:nth-child(#{$i})
+                top: ($margin-y + $point-size) * ($i - $cont-x)
+                right: 0
+        // bottom
+        @for $i from ($cont-x + $cont-y -1) through (2*$cont-x + $cont-y - 2)
+            &:nth-child(#{$i})
+                right: ($margin-x + $point-size) * ($i - ($cont-x + $cont-y -1))
+                bottom: 0
+        @for $i from (2*$cont-x + $cont-y - 2) through (2*$cont-x + 2*$cont-y - 4)
+            &:nth-child(#{$i})
+                bottom: ($margin-y + $point-size) * ($i - (2*$cont-x + $cont-y - 2))
+                left: 0
+// ============================== by liutie =================
+@mixin hlfc($lineHeight, $fontSize, $color, $fontWeight:100)
+    height: $lineHeight
+    line-height: $lineHeight
+    font-size: $fontSize
+    color: $color
+    font-weight: $fontWeight
+@mixin fc($fontSize, $color, $fontWeight:100)
+    font-size: $fontSize
+    color: $color
+    font-weight: $fontWeight
+@mixin linepxTB($direction, $borderBg)
+    content: ''
+    position: absolute
+    #{$direction}: 0
+    left: 0
+    background: $borderBg
+    width: 100%
+    height: 1px
+    transform: scaleY(0.5)
+@mixin linepxLR($direction, $borderBg)
+    content: ''
+    position: absolute
+    top: 0
+    #{$direction}: 0
+    background: $borderBg
+    width: 1px
+    height: 100%
+    transform: scaleX(0.5)
+@mixin autoWrap($width, $top, $bottom)
+    position: absolute
+    width: $width
+    top: $top
+    left: 0
+    bottom: $bottom
+    overflow-x: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+// =========================================================
+@mixin lineOf($width: auto)
+    width: $width
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+
