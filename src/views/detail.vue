@@ -9,6 +9,7 @@ export default {
         return {}
     },
     mounted () {
+        debugger
         const blogId = this.$route.params.id
         console.log(blogId)
     }

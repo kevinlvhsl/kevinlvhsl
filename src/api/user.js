@@ -1,4 +1,4 @@
-import AV from '../server/index'
+import AV from './db'
 
 import App from '../common/app'
 

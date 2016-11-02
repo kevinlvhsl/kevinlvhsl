@@ -1,7 +1,6 @@
 <template lang="jade">
 .side-nav(:class="{show: isShow}")
     el-menu.el-menu-vertical-demo(:default-active="currentRoute")
-        router-link(to="index")
         router-link(to="/index")
             el-menu-item(index="index")
                 i.el-icon-menu  HOME
@@ -17,6 +16,7 @@
         router-link(to="signUp", v-if="!logined")
             el-menu-item(index="signUp")
                 i.el-icon-menu  SIGNUP
+        router-link(to="detail", index="detail")
 </template>
 <script>
 
@@ -48,7 +48,6 @@ export default {
         }
     },
     mounted () {
-
     }
 }
 

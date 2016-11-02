@@ -22,7 +22,6 @@
 const yueban = require('../assets/mp3/yueban.mp3')
 
 export default {
-    // props: ['user'],
     data () {
         return {
             msg: 'Welcome to kevin’ personal zone',
@@ -50,7 +49,7 @@ export default {
     },
     computed: {
         user () {
-            return this.$store.state.user || App.ss.get('user')
+            return this.$store.state.user
         }
     },
 }

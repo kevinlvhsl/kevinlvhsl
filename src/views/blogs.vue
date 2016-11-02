@@ -15,11 +15,17 @@
                 .bottom-desc(style='padding: 14px')
                     h3 {{bo.title}}
                     .desc {{bo.desc}}
-                    .bottom.clearfix
+                    .bottom.clearfix(@click="goDetail(bo.date)")
                         time.time {{ bo.date | dateToCN}}
-                        el-button.button(type=' primary', @click="goDetail") 去看看
+                        el-button.button(type=' primary') 去看看
 
-
+        .page-box
+            span.demonstration 页数较少时的效果
+            el-pagination(
+                layout='prev, pager, next',
+                :page-size='size',
+                :total='listLength',
+                @currentchange="changePage")
 
 </template>
 <script>
@@ -35,53 +41,47 @@ export default {
     },
     data () {
         return {
-            blogs: [
-                {
-                    id: 1,
-                    date: 1477203378,
-                    title: 'css实现打字效果',
-                    desc: '这里主要用的技术是css的steps动画函数来实现。。。这里主要用的技术是css的steps动画函这里主要用的技术是css的steps动画函'
-                },
-                {
-                    id: 2,
-                    date: 1477353000,
-                    title: 'css实现打字效果1',
-                    desc: '这里主要用的技术是css的steps动画函数来实现。。。'
-                },
-                {
-                    id: 3,
-                    date: 1477523378,
-                    title: 'css实现打字效果2',
-                    desc: '这里主要用的技术是css的steps动画函数来实现。。。'
-                }
-            ]
+            size: 4,
+            currPage: 1
         }
     },
     methods: {
-        goDetail (id) {
-            this.$router.go({ name: 'detail', params: { id } })
+        goDetail (bid) {
+            this.$router.push({ name: 'detail', params: { id: bid } })
+        },
+        changePage (curr) {
+            console.log(curr)
+        }
+    },
+    computed: {
+        blogs () {
+            return this.$store.state.blogs.slice((this.currPage - 1) * this.size, this.size * this.currPage)
+        },
+        listLength () {
+            return this.blogs.length
         }
     },
     filters: {
         dateToCN
     },
     mounted () {
-        console.log(document.documentElement.scrollTop)
-        let lastTop = 0
-        let currTop = 0
-        document.getElementById('pg-blogs').addEventListener('scroll', (e) => {
-            currTop = e.target.scrollTop
-            if (currTop > lastTop) {
-                if (currTop > 50) {
-                    // this.$emit('hideTopBar')
-                    console.log('要收起顶部栏')
-                }
-                console.log('往下滚动ing', currTop)
-            } else {
-                console.log('往顶滚动', currTop)
-            }
-            lastTop = currTop
-        })
+        this.$store.dispatch('fetchBlogs')
+        // console.log(document.documentElement.scrollTop)
+        // let lastTop = 0
+        // let currTop = 0
+        // document.getElementById('pg-blogs').addEventListener('scroll', (e) => {
+        //     currTop = e.target.scrollTop
+        //     if (currTop > lastTop) {
+        //         if (currTop > 50) {
+        //             // this.$emit('hideTopBar')
+        //             console.log('要收起顶部栏')
+        //         }
+        //         console.log('往下滚动ing', currTop)
+        //     } else {
+        //         console.log('往顶滚动', currTop)
+        //     }
+        //     lastTop = currTop
+        // })
     }
 }
 </script>
@@ -134,6 +134,11 @@ export default {
                         margin-right: 20px
                         &:after
                             clear: both
-
-
+        .el-pagination
+            max-width: 400px
+            padding: 20px
+            text-align: center
+            background-color: lightblue
+            border-radius: 12px
+            margin: 0 auto
 </style>

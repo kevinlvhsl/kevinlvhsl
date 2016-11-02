@@ -69,8 +69,9 @@ export default {
             this.isShow = false
             next()
         })
+        console.log('session中的user：：', App.ss.get('user'))
         if (App.ss.get('user')) {
-            this.$store.dispatch('updateUser', App.ss.get('user'))
+            this.$store.dispatch('updateUser', { user: App.ss.get('user') })
         }
     }
 }

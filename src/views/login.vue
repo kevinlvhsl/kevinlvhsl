@@ -37,7 +37,6 @@
 
 </template>
 <script>
-// import kUser from '../api/user'
 
 export default {
     name: 'login',
