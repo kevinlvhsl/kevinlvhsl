@@ -32,7 +32,6 @@ export default class Blog extends AV.Object {
     fetchList (cb) {
         Blog.getQuery().find().then((data) => {
             const blogs = []
-            debugger
             data.forEach((b) => {
                 blogs.push(b.attributes)
             })

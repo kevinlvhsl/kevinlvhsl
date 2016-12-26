@@ -2,6 +2,18 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+var HelloWorldPlugin = require('./myPlugin.js')
+// function HelloWorldPlugin(options) {
+//     // Setup the plugin instance with options...
+//     console.log('kevin-plugin')
+// }
+
+// HelloWorldPlugin.prototype.apply = function(compiler) {
+//     compiler.plugin('done', function() {
+//         console.log('Hello World!');
+//     })
+// }
+
 
 module.exports = {
     entry: {
@@ -92,5 +104,8 @@ module.exports = {
                 browsers: ['last 2 versions']
             })
         ]
-    }
+    },
+    plugins: [
+        new HelloWorldPlugin({options: true, isKevin: true})
+    ]
 }
