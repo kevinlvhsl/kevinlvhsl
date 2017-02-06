@@ -3,8 +3,8 @@
     transition(name="fade" mode="out-in")
         router-view.view(@onloginIn="loginIn", @onloginOut="loginOut")
     comm-head(@onloginOut="loginOut", :user="user")
-    side-switch(:is-show="isShow", :changeStatus="changeStatus")
-    side-nav(:is-show="isShow", :changeStatus="changeStatus", :user="user")
+    //- side-switch(:is-show="isShow", :changeStatus="changeStatus")
+    //- side-nav(:is-show="isShow", :changeStatus="changeStatus", :user="user")
 </template>
 
 <script>
