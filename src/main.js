@@ -30,7 +30,7 @@ if (typeof document.hidden !== 'undefined') {
 // 添加监听器，在title里显示状态变化
 document.addEventListener(visibilityChange, function() {
     if (document.hidden) {
-        document.title = '哇塞！这里有好东西'
+        document.title = '哇塞！这里有新奇'
     } else {
         document.title = 'kevin大叔的个人网站'
     }
