@@ -5,9 +5,8 @@ In this build:
 - static/img/element-icons.09162bc.svg
 - static/img/bg.202d607.jpg
 - static/mp3/yueban.404a652.mp3
-- static/img/img1.6acf316.jpg
-- static/img/weibo.7cfb7b6.png
-- static/js/manifest.946bbea1ad8733d21587.js
-- static/js/vendor.7027dea8ec691183eb02.js
-- static/js/app.95042f091d7a43b4abe3.js
-- static/css/app.b4431e04d33f5a45bb1054c586d1423f.css
+- static/img/logo.273c66b.png
+- static/js/manifest.e0e40ec4b25d6be32079.js
+- static/js/vendor.93773c0ed55ec37aa3e8.js
+- static/js/app.f03627b0184141f41c8d.js
+- static/css/app.2a3aef1663bc0b2f32e2d157fe1d7c2f.css
