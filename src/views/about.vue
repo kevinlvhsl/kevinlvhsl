@@ -30,6 +30,7 @@ export default {
 <style lang="sass">
 #pg-about
     text-align: center
+    padding-top: 100px
     .container
         .my-weibo
             display: inline-block

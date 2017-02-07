@@ -11,20 +11,19 @@
     .container
         .blog-list
             el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
-                img.top-image(src='~assets/img1.jpg')
-                .bottom-desc(style='padding: 14px')
+                img.top-image(:src="bo.poster || '~assets/1.jpg'")
+                .bottom-desc(style="padding: 14px")
                     h3 {{bo.title}}
                     .desc {{bo.desc}}
                     .bottom.clearfix(@click="goDetail(bo.date)")
                         time.time {{ bo.date | dateToCN}}
-                        el-button.button(type=' primary') 去看看
+                        el-button.button(type=" primary") 去看看
 
         .page-box
-            span.demonstration 页数较少时的效果
             el-pagination(
-                layout='prev, pager, next',
-                :page-size='size',
-                :total='listLength',
+                layout="prev, pager, next",
+                :page-size="size",
+                :total="listLength",
                 @currentchange="changePage")
     .backtop
         a(@click="backTop" v-bind:class="{ hide: isTop }")
@@ -52,6 +51,7 @@ export default {
             this.$router.push({ name: 'detail', params: { id: bid } })
         },
         changePage (curr) {
+            this.currPage = curr
             console.log(curr)
         },
         checkScrollTop () {

@@ -1,11 +1,11 @@
 <template lang="jade">
 .comm-head
     img.headimg(src="~assets/headimg.jpg", :class="{round: isPlaying}", @click="changePlay")
-    .logo-box
+    router-link.logo-box(to="/index")
         img(class="logo" src="~assets/logo.png")
-        p 篮球之翼-空间
+        p 篮球-星翼空间
     .welcome(v-if="user")
-        strong 你好 {{user.username}} &nbsp;
+        strong {{user.username}} &nbsp;
         a(v-if="user", @click="loginOut") 注销
         //- 登录需要手动输入url
          //-     span(v-if="!user", @click="goLoginIn") 登录
@@ -13,6 +13,7 @@
         el-menu-item(index="/index") 首页
         el-menu-item(index="/blogs") BLOG
         el-menu-item(index="/about") ABOUT ME
+        el-menu-item(v-if="user" index="/admin") 管理后台
 
     audio(
         ref="myaudio",

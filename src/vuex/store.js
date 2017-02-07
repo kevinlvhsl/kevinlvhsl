@@ -61,14 +61,26 @@ const store = new Vuex.Store({
                 cb && cb()
             })
         },
-        fetchBlogs ({ commit, state }) {
-            blogApi.fetchList((s) => {
+        fetchBlogs ({ commit, state }, page = 1) {
+            blogApi.fetchList(page, (s) => {
                 console.log('获取回来的数据：：', s)
                 commit('initBlogs', { items: s })
             })
         },
         updateUser ({ commit, dispatch, state }, { user }) {
             commit('setUser', { user })
+        },
+        saveBlog ({ dispatch, state }, { params, cb }) {
+            blogApi.addOneBlog(params, (s) => {
+                console.log('成功的数据：：', s)
+                cb && cb()
+            })
+        },
+        getBlogItem ({ commit, dispatch, state }, { params, cb }) {
+            blogApi.fetchItem(params, (blog) => {
+                console.log('获取单个blog：', blog)
+                cb && cb(blog)
+            })
         }
     },
     mutations: {
@@ -86,6 +98,14 @@ const store = new Vuex.Store({
         getUser (state) {
             return state.user
         }
+    },
+    middlewares: {
+      // onMutation (mutation, { setClock }) {
+      //   // if (mutation.type === 'initBlogs') {
+      //   //     App.ls.set('packages', service.packages)
+      //   //     console.log('ls set packages ')
+      //   // }
+      // }
     }
 })
 

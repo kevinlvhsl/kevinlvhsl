@@ -12,11 +12,13 @@ import SignUp from '../views/signUp.vue'
 
 import Login from '../views/login.vue'
 
+import Admin from '../views/admin.vue'
+
 import Detail from '../views/detail.vue'
 
 Vue.use(Router)
 export default new Router({
-    mode: 'hash',
+    mode: 'history',
     scrollBehavior: () => ({ y: 0 }),
     routes: [
         { path: '/index', component: Index },
@@ -24,6 +26,7 @@ export default new Router({
         { path: '/blogs', component: Blogs },
         { path: '/signUp', component: SignUp },
         { path: '/login', component: Login },
+        { path: '/admin', component: Admin },
         // { path: '/ask/:page(\\d+)?', component: createListView('ask') },
         // { path: '/job/:page(\\d+)?', component: createListView('job') },
         // { path: '/item/:id(\\d+)', component: ItemView },

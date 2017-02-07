@@ -85,7 +85,7 @@ export default {
                         {
                             params: this.form,
                             cb: () => {
-                                alert('这里是登录的回调')
+                                console.log('这里是登录成功的回调')
                                 this.success = true
                                 this.$emit('onloginIn')
                                 this.$message({
