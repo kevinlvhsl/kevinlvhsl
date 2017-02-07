@@ -1,11 +1,19 @@
 <template lang="jade">
 .comm-head
-    //- img.logo(class="logo" src="~assets/logo.png")
     img.headimg(src="~assets/headimg.jpg", :class="{round: isPlaying}", @click="changePlay")
-    .welcom-p
-        span(v-if="user", @click="loginOut") 登出
-        span(v-if="!user", @click="goLoginIn") 登录
-        strong(v-if="user") 你好 {{user.username}}
+    .logo-box
+        img(class="logo" src="~assets/logo.png")
+        p 篮球之翼-空间
+    .welcome(v-if="user")
+        strong 你好 {{user.username}} &nbsp;
+        a(v-if="user", @click="loginOut") 注销
+        //- 登录需要手动输入url
+         //-     span(v-if="!user", @click="goLoginIn") 登录
+    el-menu(class="app-nav" default-active="/index" router=true class="el-menu-demo" mode="horizontal" @select="handleSelect")
+        el-menu-item(index="/index") 首页
+        el-menu-item(index="/blogs") BLOG
+        el-menu-item(index="/about") ABOUT ME
+
     audio(
         ref="myaudio",
         :src="url",
@@ -22,11 +30,25 @@
 const yueban = require('../assets/mp3/yueban.mp3')
 
 export default {
+    name: 'nav',
+    props: {
+        isShow: {
+            type: Boolean,
+            default: false
+        },
+        changeStatus: {
+            type: Function,
+        },
+        user: {
+            type: Object
+        }
+    },
     data () {
         return {
             msg: 'Welcome to kevin’ personal zone',
             url: yueban,
             isPlaying: true,
+            logined: this.user
         }
     },
     methods: {
@@ -45,11 +67,18 @@ export default {
         },
         goLoginIn () {
             this.$router.push('login')
+        },
+        handleSelect(key, keyPath) {
+            console.log(key, keyPath)
         }
     },
     computed: {
         user () {
             return this.$store.state.user
+        },
+        currentRoute () {
+            if (this.$route.path.split('/')[1] === 'detail') return ''
+            return this.$route.path.split('/')[1]
         }
     },
 }
@@ -58,53 +87,59 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass" scoped>
 .comm-head
-    height: 80px
+    height: 60px
+    min-width: 1000px
     position: fixed
+    display: flex
     top: 0
     width: 100%
-    background-color: lightblue
+    padding-left: 100px
+    background-color: #fff
+    border-top: 3px solid lightblue
+    box-shadow: 0 5px 5px rgba(0, 0, 0, .4)
     h1
         padding: 0 140px
         line-height: 70px
         color: #575656
         overflow-x: hidden
         width: 700px
-    .logo
-        position: absolute
-        top: 10px
-        left: 20px
-        height: 50px
-        width: 50px
+    .logo-box
+        display: flex
+        width: 200px
+        align-items: center
+        font-size: 20px
+        color: #1d90e6
+        .logo
+            height: 48px
+            width: 48px
     audio
         height: 60px
         width: 360px
         margin-left: 100px
-    .welcom-p
-        position: absolute
-        height: 40px
-        width: 180px
-        top: 50%
-        margin-top: -20px
-        left: 120px
-        font-size: 18px
-        color: #fff
-        line-height: 40px
+    .welcome
+        width: 150px
+        height: 100%
+        line-height: 60px
+        font-size: 16px
+        color: #000
         font-weight: bold
-        strong
-            margin-left: 20px
-        span
+        a
             cursor: pointer
             &:hover
                 text-decoration: underline
+    .app-nav
+        flex: 1
+        li
+            font-size: large
     .headimg
         position: fixed
-        top: 10px
+        top: 7px
         left: 20px
         z-index: 999
-        height: 60px
-        width: 60px
+        height: 48px
+        width: 48px
         border-radius: 100%
-        border: 2px solid red
+        border: 2px solid lightblue
         animation: round 3s infinite linear
         // animation-name: round
         // animation-duration 3s

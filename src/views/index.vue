@@ -1,11 +1,12 @@
 <template lang="jade">
 #pg-index
-    .info-container
+    .container
 
-        h1.title WEB FRONT DEVELOPOMENT
-        h2 前端开发菜鸟
+        //- h1.title WEB FRONT DEVELOPOMENT
+        img.headimg(src="~assets/headimg.jpg")
+        h3 KEVIN大叔
+        h2 前端开发菜鸟、VUEJS、微信小程序
         //- div(id="demo2" v-href:o="'http://google.com'") click me to open new tab to google
-        h3 sdafsdfsdf
         ul
             li()
                 a.github(target="_blank" href="https://github.com/kevinlvhsl" title="github")
@@ -17,10 +18,11 @@
                 a.weibo(target="_blank" href="http://weibo.com/u/3037846237?source=blog")
                     //- cite
                     //-     img(src="~assets/weibo.png" width="32" height="32" align="absmiddle")
-        div
-            el-button(:disabled="true", @click="alert(1)") 默认按钮
-            el-button(type="primary", :loading="true") 加载中
-
+        //- div
+        //-     el-button(:disabled="true", @click="alert(1)") 默认按钮
+        //-     el-button(type="primary", :loading="true") 加载中
+    .footer
+        .msg 友情链接
 </template>
 
 <script>
@@ -52,8 +54,15 @@ export default {
     height: 100%
     min-height: 100vh
     text-align: center
-    .info-container
-        background: #f4f4f4 url(//dn-lay.qbox.me/build/single-page/images/mask_f70d8a0.png)
+    .container
+        background: url('//dn-lay.qbox.me/build/single-page/images/mask_f70d8a0.png')
+        height: calc(100vh - 180px)
+        position: relative
+        padding: 100px auto 30px
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
         &:after
             content: ''
             position: absolute
@@ -63,24 +72,24 @@ export default {
             left: 0
             border-style: solid
             border-width: 5rem 50vw 0
-            border-color: transparent rgba(255,255,255,.5)
+            border-color: transparent rgba(244, 244, 244,.7)
         ul
-            margin: 10px auto
+            margin: 16px auto
             li
                 a
                     display: inline-block
                     vertical-align: middle
-                    width: 3em
-                    height: 3em
-                    margin: 5px
-                    line-height: 3.2em
-                    color: #000
+                    width: 4rem
+                    height: 4rem
+                    margin: 10px
                     opacity: .7
                     transition: all .2s ease
                     background:
                         size: 100% 100%
                         repeat: no-repeat
                         position: center center
+                    &:hover
+                        opacity: 1
                     &.github
                         background-image: url('~assets/github.png')
                         background-size: 90% 90%
@@ -95,22 +104,37 @@ export default {
                         background-image: url('~assets/weibo.png')
                         &:hover
                             background-image: url('~assets/weibo-hover.png')
-
+        .headimg
+            height: 10rem
+            width: 10rem
+            display: block
+            margin: 0 auto
+            border: 4px solid #fff
+            border-radius: 50%
+            transform-origin: center center
+            transition: transform 1s
+            &:hover
+                transform: rotate(200deg)
+        h3
+            line-height: 2.5em
         h2
-            font-size: 30px
-            margin-left: 10px
-            line-height: 100px
-        .title
-            margin-left: 20px
-            padding-right: 4px
-            line-height: 54px
-            font: bold 200% Consolas, Monaco, monospace
-            width: 21ch
-            font-size: 50px
-            color: #575656
-            border-right: 1pt solid
-            overflow: hidden
-            white-space: nowrap
-            // animation: typing 5s 1s steps(21) 100, caret 1s steps(1) infinite
-
+            font-size: 20px
+            line-height: 3em
+        // .title
+        //     margin-left: 20px
+        //     padding-right: 4px
+        //     line-height: 54px
+        //     font: bold 200% Consolas, Monaco, monospace
+        //     width: 21ch
+        //     font-size: 50px
+        //     color: #575656
+        //     border-right: 1pt solid
+        //     overflow: hidden
+        //     white-space: nowrap
+        //     animation: typing 5s 1s steps(21) 100, caret 1s steps(1) infinite
+    .footer
+        height: 100px
+        width: 100%
+        border: 1px solid red
+        background-color: rgba(244, 244, 244, .7)
 </style>

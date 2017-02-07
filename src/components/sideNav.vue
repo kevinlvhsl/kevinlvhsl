@@ -5,16 +5,16 @@
             el-menu-item(index="index")
                 i.el-icon-menu  HOME
         router-link(to="about")
-            el-menu-item(index="about")
+            el-menu-item(index="/about")
                 i.el-icon-menu  ABOUT ME
         router-link(to="blogs")
-            el-menu-item(index="blogs")
+            el-menu-item(index="/blogs")
                 i.el-icon-menu  BLOG
         router-link(to="login", v-if="!logined")
-            el-menu-item(index="login")
+            el-menu-item(index="/login")
                 i.el-icon-menu  LOGIN
         router-link(to="signUp", v-if="!logined")
-            el-menu-item(index="signUp")
+            el-menu-item(index="/signUp")
                 i.el-icon-menu  SIGNUP
         router-link(to="detail", index="detail")
 </template>

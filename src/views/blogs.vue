@@ -1,5 +1,5 @@
 <template lang="jade">
-#pg-blogs
+#pg-blogs(@scroll="checkScrollTop")
     //- .left-content
     //-     left-panel
     //- .right-content
@@ -26,7 +26,8 @@
                 :page-size='size',
                 :total='listLength',
                 @currentchange="changePage")
-
+    .backtop
+        a(@click="backTop" v-bind:class="{ hide: isTop }")
 </template>
 <script>
 
@@ -42,7 +43,8 @@ export default {
     data () {
         return {
             size: 4,
-            currPage: 1
+            currPage: 1,
+            isTop: true
         }
     },
     methods: {
@@ -51,6 +53,18 @@ export default {
         },
         changePage (curr) {
             console.log(curr)
+        },
+        checkScrollTop () {
+            console.log(document.getElementById('pg-blogs').scrollTop)
+            if (document.getElementById('pg-blogs').scrollTop > 100) {
+                this.isTop = false
+            } else {
+                this.isTop = true
+            }
+        },
+        backTop () {
+            document.getElementById('pg-blogs').scrollTop = 0
+            this.isTop = true
         }
     },
     computed: {
@@ -96,6 +110,34 @@ export default {
         height: 100%
     .right-content
         flex: 1
+    .backtop
+        position: fixed
+        bottom: 0
+        right: 20px
+        width: 50px
+        z-index: 100
+        a
+            position: absolute
+            display: block
+            width: 100%
+            height: 35px
+            bottom: 0
+            background: #f70
+            box-shadow: 0 0 4px rgba(0,0,0,.5)
+            transition: .2s
+            &.hide
+                transition-delay: .5s
+                bottom: -60px
+            &:before
+                content: ''
+                display: block
+                position: absolute
+                width: 0
+                height: 0
+                top: -10px
+                border-style: solid
+                border-width: 0 25px 10px
+                border-color: transparent transparent #f70
     .container
         width: 80%
         margin: 20px auto
