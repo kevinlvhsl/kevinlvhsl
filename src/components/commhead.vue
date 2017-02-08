@@ -1,5 +1,5 @@
 <template lang="jade">
-.comm-head
+.comm-head(v-show="currentRoute")
     img.headimg(src="~assets/headimg.jpg", :class="{round: isPlaying}", @click="changePlay")
     router-link.logo-box(to="/index")
         img(class="logo" src="~assets/logo.png")
@@ -14,15 +14,15 @@
     //-     el-menu-item(index="blogs") BLOG
     //-     el-menu-item(index="about") ABOUT ME
     //-     el-menu-item(v-if="user" index="admin") 管理后台
-    el-menu(class="app-nav", default-active="index", router=true, mode="horizontal")
+    el-menu(class="app-nav", default-active="index", mode="horizontal")
         router-link(to="/index")
             el-menu-item(index="index") HOME
         router-link(to="about")
-            el-menu-item(index="/about") ABOUT ME
+            el-menu-item(index="about") ABOUT ME
         router-link(to="blogs")
-            el-menu-item(index="/blogs") BLOG
+            el-menu-item(index="blogs") BLOG
         router-link(to="admin", v-if="user")
-            el-menu-item(index="/admin") ADMIN
+            el-menu-item(index="admin") ADMIN
         router-link(to="detail", index="detail")
     audio(
         ref="myaudio",

@@ -140,6 +140,7 @@ $themeBlue: #20a0ff
         margin: 20px auto
         background-color: transparent
         .blog-list
+            min-height: 50vh
             width: 80%
             margin: 0 auto
             display: flex

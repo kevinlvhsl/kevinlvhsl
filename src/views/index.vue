@@ -95,9 +95,9 @@ export default {
             border: 4px solid #fff
             border-radius: 50%
             transform-origin: center center
-            transition: transform 1s
+            transition: transform 0.7s
             &:hover
-                transform: rotate(200deg)
+                transform: rotate(120deg)
         h3
             line-height: 2.5em
         h2
