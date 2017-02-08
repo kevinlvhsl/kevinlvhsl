@@ -77,10 +77,7 @@ const store = new Vuex.Store({
             })
         },
         getBlogItem ({ commit, dispatch, state }, { params, cb }) {
-            blogApi.fetchItem(params, (blog) => {
-                console.log('获取单个blog：', blog)
-                cb && cb(blog)
-            })
+            blogApi.fetchItem(params, cb)
         }
     },
     mutations: {

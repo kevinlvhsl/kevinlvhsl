@@ -24,7 +24,10 @@
                 input#photoFileUpload(type="file" @change="uploadFile")
 
             el-form-item(label="内容")
-                el-input(type="textarea", :rows="8" placeholder="请输入文章内容" v-model="form.desc")
+                el-radio.radio(v-model="markdown", label="1") markdown
+                el-radio.radio(v-model="markdown", label="2") text/plain
+                el-input(v-show="markdown === '2'", type="textarea", :rows="8" placeholder="请输入文章内容" v-model="form.desc")
+                #editor(v-show="markdown === '1'", contenteditable="true")
             el-form-item
                 el-button(type="primary submit", @click.native.prevent="onSubmit") 立即发布
                 el-button 取消
@@ -55,6 +58,7 @@ export default {
                 live: ['篮球', '旅游'],
                 other: ['八卦']
             },
+            markdown: '1',
             form: {
                 title: '',
                 category: '',
@@ -88,6 +92,7 @@ export default {
                 })
                 return
             }
+            this.form.html = document.getElementById('editor').innerHTML
             this.$store.dispatch('saveBlog', {
                 params: this.form,
                 cb: () => {
@@ -114,6 +119,21 @@ export default {
     },
     beforeDistory () {
     },
+    created () {
+        const a = document.createElement('script')
+        a.onload = function () {
+            console.log('加载编辑器成功')
+            window.MarkdownIME = MarkdownIME
+            console.log(MarkdownIME)
+            MarkdownIME.Enhance(MarkdownIME.Scan(window))
+            console.log('MarkdownIME:', MarkdownIME)
+            MarkdownIME.Enhance(document.getElementById('editor'))
+            const math = new MarkdownIME.Addon.MathAddon()
+            MarkdownIME.Renderer.inlineRenderer.addRule(math)
+        }
+        a.src = 'http://build.laobubu.net/MarkdownIME/MarkdownIME.min.js'
+        document.body.appendChild(a)
+    },
     mounted () {
         // api.loginAuthorize()
     }
@@ -134,6 +154,15 @@ export default {
         .el-form
             width: 80%
             margin: 0 auto
+            #editor
+                background-color: #fff
+                height: 400px
+                width: 100%
+                overflow-y: scroll
+                text-align: left
+                font-size: 14px
+                padding: 10px
+                line-height: 1.4
         h2
             line-height: 60px
             font-size: 20px

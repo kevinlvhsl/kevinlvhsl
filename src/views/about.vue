@@ -1,19 +1,38 @@
 <template lang="jade">
 #pg-about
     .container
-        h1 这里是个人资料
-        a.my-weibo(target="_blank" href="http://weibo.com/u/3037846237?source=blog")
-            cite
-                img(src="~assets/weibo.png" width="15" height="15" align="absmiddle")
-                | 微博
-        p 不会打篮球的前端不是一个好丈夫
-        p 姓名： 梁小军
-        p 岗位： 前端开发
-        p 工作年限：4年
-        p 工作地址：魔都
-        p 感兴趣的技术：HTML5/CSS3/JavaScript、Vue、React、webpack...
-        p
-            a(target="_blank" href="https://github.com/kevinlvhsl") https://github.com/kevinlvhsl
+        h1 关于我
+        hr
+        h3 常常认为：不会打篮球的前端男生不是一个好丈夫
+        ul.info-list
+            li
+                label 姓名：
+                span 梁小军
+            li
+                label 岗位：
+                span 前端开发
+            li
+                label Q Q：
+                span 353030799
+            li
+                label 邮箱：
+                span 353030799@qq.com
+            li
+                label 爱好：
+                span 电影、篮球、排球、羽毛球等等球类运动
+            li
+                label 工作年限：
+                span 4年多
+            li
+                label 工作地址：
+                span 目前在魔都
+            li
+                label 常用技术：
+                span HTML5/CSS3/JavaScript、Vue、React、webpack...
+            li
+                label 技术主页：
+                span
+                    a(target="_blank" href="https://github.com/kevinlvhsl") https://github.com/kevinlvhsl
 
 </template>
 <script>
@@ -32,19 +51,22 @@ export default {
     text-align: center
     padding-top: 100px
     .container
-        .my-weibo
-            display: inline-block
-            width: 68px
-            line-height: 30px
-            text-align: center
-            background-color: #ddd
-            border-radius: 4px
-            font-size: 14px
-            img
-                height: 16px
-                width: 16px
-                vertical-align: sub
-        p
+        h3
+            width: 70%
+            margin: 0 auto
             font-size: 20px
-            text-indent: 20px
+        .info-list
+            width: 78%
+            margin: 0 auto
+            text-align: left
+            li
+                font-size: 16px
+                font-weight: 600
+                line-height: 40px
+                label
+                    display: inline-block
+                    width: 40%
+                    text-align: right
+                span
+                    padding-left: 10px
 </style>

@@ -1,5 +1,5 @@
 <template lang="jade">
-#pg-blogs(@scroll="checkScrollTop")
+#pg-blogs.view(@scroll="checkScrollTop")
     //- .left-content
     //-     left-panel
     //- .right-content
@@ -11,11 +11,12 @@
     .container
         .blog-list
             el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
-                img.top-image(:src="bo.poster || '~assets/1.jpg'")
-                .bottom-desc(style="padding: 14px")
+                .top-image
+                    img(:src="bo.poster || '~assets/1.jpg'")
+                .bottom-desc
                     h3 {{bo.title}}
                     .desc {{bo.desc}}
-                    .bottom.clearfix(@click="goDetail(bo.date)")
+                    .bottom.clearfix(@click="goDetail(bo.id)")
                         time.time {{ bo.date | dateToCN}}
                         el-button.button(type=" primary") 去看看
 
@@ -100,16 +101,12 @@ export default {
 }
 </script>
 <style lang="sass">
+$themeBlue: #20a0ff
 #pg-blogs
-    // display: flex
-    // align-items: stretch
+    min-width: 1000px
+    overflow-x: hidden
     overflow-y: scroll
     -webkit-overflow-scrolling: touch
-    .left-content
-        width: 280px
-        height: 100%
-    .right-content
-        flex: 1
     .backtop
         position: fixed
         bottom: 0
@@ -150,21 +147,26 @@ export default {
             // justify-content: space-around
             .item
                 width: 45%
-                border: 2px solid red
+                border: 2px solid $themeBlue
                 margin-bottom: 20px
                 &:nth-child(even)
                     margin-left: 5%
                 .top-image
                     display: block
                     width: 100%
-                    // height: 100%
+                    height: 16em
                     max-height: 240px
                     margin: 0 auto
+                    img
+                        width: 100%
+                        height: 100%
                 .bottom-desc
                     height: 120px
+                    padding: 10px 14px
                     .desc
                         margin: 8px auto
                         width: 260px
+                        height: 32px
                         text-overflow: ellipsis
                         overflow: hidden
                         display: -webkit-box
@@ -177,7 +179,7 @@ export default {
                         &:after
                             clear: both
         .el-pagination
-            max-width: 400px
+            max-width: 500px
             padding: 20px
             text-align: center
             background-color: lightblue

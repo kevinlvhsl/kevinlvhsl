@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './common/app'
 import app from './App.vue'
+
 // require('./common/zepto.js')
 import router from './config/router'
+
 import store from './vuex/store'
-// import plugin from './common/plugin.js'
-// Vue.use(plugin)
+
+
 window.App = App
 
 new Vue({

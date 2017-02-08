@@ -1,4 +1,4 @@
-import Axios from './resources'
+import Axios from './resources';
 
 export default {
   /**

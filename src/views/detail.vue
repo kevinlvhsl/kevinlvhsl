@@ -1,6 +1,7 @@
 <template lang="jade">
 #pg-detail
-    | {{currBlog.title}}
+    div {{currBlog.title}}
+    p {{currBlog.html}}
 
     //- bolg.set('title', obj.title)
     //-     bolg.set('category', obj.category)

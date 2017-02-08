@@ -9,12 +9,21 @@
         a(v-if="user", @click="loginOut") 注销
         //- 登录需要手动输入url
          //-     span(v-if="!user", @click="goLoginIn") 登录
-    el-menu(class="app-nav" default-active="/index" router=true class="el-menu-demo" mode="horizontal" @select="handleSelect")
-        el-menu-item(index="/index") 首页
-        el-menu-item(index="/blogs") BLOG
-        el-menu-item(index="/about") ABOUT ME
-        el-menu-item(v-if="user" index="/admin") 管理后台
-
+    //- el-menu(class="app-nav", :default-active="currentRoute", router=true, class="el-menu-demo", mode="horizontal" @select="handleSelect")
+    //-     el-menu-item(index="index") 首页
+    //-     el-menu-item(index="blogs") BLOG
+    //-     el-menu-item(index="about") ABOUT ME
+    //-     el-menu-item(v-if="user" index="admin") 管理后台
+    el-menu(class="app-nav", default-active="index", router=true, mode="horizontal")
+        router-link(to="/index")
+            el-menu-item(index="index") HOME
+        router-link(to="about")
+            el-menu-item(index="/about") ABOUT ME
+        router-link(to="blogs")
+            el-menu-item(index="/blogs") BLOG
+        router-link(to="admin", v-if="user")
+            el-menu-item(index="/admin") ADMIN
+        router-link(to="detail", index="detail")
     audio(
         ref="myaudio",
         :src="url",
@@ -32,24 +41,12 @@ const yueban = require('../assets/mp3/yueban.mp3')
 
 export default {
     name: 'nav',
-    props: {
-        isShow: {
-            type: Boolean,
-            default: false
-        },
-        changeStatus: {
-            type: Function,
-        },
-        user: {
-            type: Object
-        }
-    },
     data () {
         return {
             msg: 'Welcome to kevin’ personal zone',
             url: yueban,
             isPlaying: true,
-            logined: this.user
+            user: this.user
         }
     },
     methods: {
@@ -87,6 +84,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass" scoped>
+$themeBlue: #20a0ff
 .comm-head
     height: 60px
     min-width: 1000px
@@ -130,8 +128,13 @@ export default {
                 text-decoration: underline
     .app-nav
         flex: 1
-        li
+        .el-menu-item
             font-size: large
+            &:hover
+                background-color: $themeBlue
+                color: #fff
+
+
     .headimg
         position: fixed
         top: 7px
