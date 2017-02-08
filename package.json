@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "element-ui": "^1.0.0-rc.4",
+    "eslint": "^3.15.0",
     "leancloud-storage": "^1.5.0",
     "vue": "^2.0.1",
+    "vue-markdown": "^2.1.3",
     "vuex": "^2.0.0"
   },
   "devDependencies": {
@@ -28,13 +30,12 @@
     "babel-register": "^6.0.0",
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.25.0",
-    "eslint": "^3.7.1",
-    "eslint-loader": "^1.5.0",
+    "eslint-config-airbnb-base": "^11.1.0",
     "eslint-friendly-formatter": "^2.0.5",
-    "eslint-config-airbnb-base": "^8.0.0",
     "eslint-import-resolver-webpack": "^0.6.0",
+    "eslint-loader": "^1.5.0",
     "eslint-plugin-html": "^1.3.0",
-    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-import": "^2.2.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",

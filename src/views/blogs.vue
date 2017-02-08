@@ -12,7 +12,7 @@
         .blog-list
             el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
                 .top-image
-                    img(:src="bo.poster || '~assets/1.jpg'")
+                    img(:src="bo.poster || defualtimg")
                 .bottom-desc
                     h3 {{bo.title}}
                     .desc {{bo.desc}}
@@ -42,6 +42,7 @@ export default {
     },
     data () {
         return {
+            defualtimg: 'https://dn-yaotv.qbox.me/appintv_eae657cf33aeb2bf01cf64a1a7331ac1.jpeg',
             size: 4,
             currPage: 1,
             isTop: true
@@ -72,8 +73,11 @@ export default {
         blogs () {
             return this.$store.state.blogs.slice((this.currPage - 1) * this.size, this.size * this.currPage)
         },
+        totalBlogs () {
+            return this.$store.state.blogs
+        },
         listLength () {
-            return this.blogs.length
+            return this.totalBlogs.length
         }
     },
     filters: {
@@ -139,8 +143,11 @@ $themeBlue: #20a0ff
         width: 80%
         margin: 20px auto
         background-color: transparent
+        display: flex
+        flex-direction: column
         .blog-list
-            min-height: 50vh
+            flex: 1
+            // min-height: 50vh
             width: 80%
             margin: 0 auto
             display: flex
@@ -155,7 +162,7 @@ $themeBlue: #20a0ff
                 .top-image
                     display: block
                     width: 100%
-                    height: 16em
+                    height: 15em
                     max-height: 240px
                     margin: 0 auto
                     img
@@ -181,6 +188,7 @@ $themeBlue: #20a0ff
                             clear: both
         .el-pagination
             max-width: 500px
+            height: 60px
             padding: 20px
             text-align: center
             background-color: lightblue
