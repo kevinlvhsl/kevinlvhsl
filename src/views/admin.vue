@@ -24,13 +24,14 @@
                     .el-upload__tip(slot="tip") 只能上传jpg/png文件，且不超过500kb
                 input#photoFileUpload(type="file" @change="uploadFile")
                 img.preview-poster(v-if="form.poster", :src="form.poster")
-
+            el-form-item(label="摘要")
+                el-input(type="textarea", :rows="2", v-model="form.desc", :minlength="1", :maxlength="30", placeholder="简单描述(1~30字)")
             el-form-item(label="内容")
             .content-editor
                 .left-editor
-                    textarea(v-model="form.desc", rows="20", placeholder="在这里输入内容(markdown格式)")
+                    textarea(v-model="form.content", rows="20", placeholder="在这里输入内容(markdown格式)")
                 .right-preview
-                    vue-markdown( emoji=true, :source="form.desc")
+                    vue-markdown( emoji=true, :source="form.content")
             el-form-item
                 el-button(v-show="!lock" type="primary submit", @click.native.prevent="onSubmit") 立即发布
                 el-button 取消
@@ -52,7 +53,6 @@ export default {
         return {
             lock: false,
             source: new Date().toLocaleTimeString(),
-            content: '',
             labels: [
                 { name: '前端', value: 'frontend' },
                 { name: '后端', value: 'backend' },
@@ -73,6 +73,7 @@ export default {
                 category: '',
                 poster: '',
                 type: [],
+                content: '',
                 desc: ''
             }
         }

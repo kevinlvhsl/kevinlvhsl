@@ -17,7 +17,7 @@ export default class Blog extends AV.Object {
         bolg.set('desc', obj.desc)
         bolg.set('poster', obj.poster)
         bolg.set('type', obj.type)
-        bolg.set('html', obj.html || '<div>')
+        bolg.set('content', obj.content)
         bolg.set('date', Math.floor(Date.now() / 1000))
 
         bolg.save().then((blog2) => {

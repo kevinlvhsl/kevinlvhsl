@@ -13,6 +13,8 @@
             el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
                 .top-image
                     img(:src="bo.poster || defualtimg")
+                .category
+                    .tpye {{bo.category | en2cn}}
                 .bottom-desc
                     h3 {{bo.title}}
                     .desc {{bo.desc}}
@@ -26,19 +28,19 @@
                 :page-size="size",
                 :total="listLength",
                 @currentchange="changePage")
-    .backtop
-        a(@click="backTop" v-bind:class="{ hide: isTop }")
+    back-top(ref="childbtn", target-id="#pg-blogs")
+
 </template>
 <script>
 
-import LeftPanel from '../components/leftPanel.vue'
+import BackTop from '../components/BackTop.vue'
 
 import { dateToCN } from '../filters/'
 
 export default {
     name: 'blogs',
     components: {
-        LeftPanel
+        BackTop
     },
     data () {
         return {
@@ -57,16 +59,8 @@ export default {
             console.log(curr)
         },
         checkScrollTop () {
-            console.log(document.getElementById('pg-blogs').scrollTop)
-            if (document.getElementById('pg-blogs').scrollTop > 100) {
-                this.isTop = false
-            } else {
-                this.isTop = true
-            }
-        },
-        backTop () {
-            document.getElementById('pg-blogs').scrollTop = 0
-            this.isTop = true
+            const child = this.$refs.childbtn //获取子组件实例
+            child.checkshow()
         }
     },
     computed: {
@@ -81,7 +75,11 @@ export default {
         }
     },
     filters: {
-        dateToCN
+        dateToCN,
+        en2cn (en) {
+            const labels = {frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
+            return labels[en] || '未 知'
+        }
     },
     mounted () {
         this.$store.dispatch('fetchBlogs')
@@ -111,34 +109,7 @@ $themeBlue: #20a0ff
     overflow-x: hidden
     overflow-y: scroll
     -webkit-overflow-scrolling: touch
-    .backtop
-        position: fixed
-        bottom: 0
-        right: 20px
-        width: 50px
-        z-index: 100
-        a
-            position: absolute
-            display: block
-            width: 100%
-            height: 35px
-            bottom: 0
-            background: #f70
-            box-shadow: 0 0 4px rgba(0,0,0,.5)
-            transition: .2s
-            &.hide
-                transition-delay: .5s
-                bottom: -60px
-            &:before
-                content: ''
-                display: block
-                position: absolute
-                width: 0
-                height: 0
-                top: -10px
-                border-style: solid
-                border-width: 0 25px 10px
-                border-color: transparent transparent #f70
+
     .container
         width: 80%
         margin: 20px auto
@@ -157,6 +128,7 @@ $themeBlue: #20a0ff
                 width: 45%
                 border: 2px solid $themeBlue
                 margin-bottom: 20px
+                position: relative
                 &:nth-child(even)
                     margin-left: 5%
                 .top-image
@@ -168,6 +140,28 @@ $themeBlue: #20a0ff
                     img
                         width: 100%
                         height: 100%
+                .category
+                    position: absolute
+                    top: 10px
+                    left: 15px
+                    height: 20px
+                    font-size: 14px
+                    border-radius: 3px 0 0 3px
+                    width: 40px
+                    line-height: 20px
+                    text-indent: 5px
+                    background-color: #a09b9b
+                    color: #fff
+                    &:after
+                        position: absolute
+                        content: ''
+                        height: 0
+                        width: 0
+                        top: 0
+                        right: -10px
+                        border-width: 10px 0px 10px 10px
+                        border-style: solid
+                        border-color: transparent transparent transparent #a09b9b
                 .bottom-desc
                     height: 120px
                     padding: 10px 14px

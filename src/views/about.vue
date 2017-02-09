@@ -6,31 +6,31 @@
         h3 常常认为：不会打篮球的前端男生不是一个好丈夫
         ul.info-list
             li
-                label 姓名：
-                span 梁小军
+                label 昵称：
+                span kevin、kevinliang、kevin大叔
             li
-                label 岗位：
+                label 派别：
                 span 前端开发
             li
-                label Q Q：
-                span 353030799
-            li
-                label 邮箱：
-                span 353030799@qq.com
-            li
-                label 爱好：
+                label 嗜好：
                 span 电影、篮球、排球、羽毛球等等球类运动
             li
-                label 工作年限：
-                span 4年多
+                label 扣扣：
+                span 353030799
             li
-                label 工作地址：
+                label 伊妹儿：
+                span 353030799@qq.com
+            li
+                label 混迹于：
                 span 目前在魔都
             li
-                label 常用技术：
+                label 摸爬滚打：
+                span 4年多
+            li
+                label 吃饭家伙：
                 span HTML5/CSS3/JavaScript、Vue、React、webpack...
             li
-                label 技术主页：
+                label 攻占领地：
                 span
                     a(target="_blank" href="https://github.com/kevinlvhsl") https://github.com/kevinlvhsl
 
