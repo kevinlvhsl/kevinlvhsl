@@ -17,10 +17,10 @@
     el-menu(class="app-nav", default-active="index", mode="horizontal")
         router-link(to="/index")
             el-menu-item(index="index") HOME
-        router-link(to="about")
-            el-menu-item(index="about") ABOUT ME
         router-link(to="blogs")
             el-menu-item(index="blogs") BLOG
+        router-link(to="about")
+            el-menu-item(index="about") ABOUT ME
         router-link(to="admin", v-if="user")
             el-menu-item(index="admin") ADMIN
         router-link(to="detail", index="detail")
