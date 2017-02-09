@@ -52,12 +52,14 @@ export default class Blog extends AV.Object {
         // query.skip((page - 1) * 10)
         query.find().then((data) => {
             const blogs = []
-            data.forEach((b) => {
-                const obj = b.attributes
-                obj.id = b.id
-                blogs.push(obj)
-            })
-            console.log('blogs::', blogs)
+            if (data && data.length > 0) {
+                data.forEach((b) => {
+                    const obj = b.attributes || {}
+                    obj.id = b.id
+                    blogs.push(obj)
+                })
+                console.log('blogs::', blogs)
+            }
             cb && cb(blogs)
         }, (err) => {
             console.error(err)

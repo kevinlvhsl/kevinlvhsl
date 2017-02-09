@@ -15,7 +15,7 @@
     //-     el-menu-item(index="about") ABOUT ME
     //-     el-menu-item(v-if="user" index="admin") 管理后台
     el-menu(class="app-nav", default-active="index", mode="horizontal")
-        router-link(to="/index")
+        router-link(to="index")
             el-menu-item(index="index") HOME
         router-link(to="blogs")
             el-menu-item(index="blogs") BLOG

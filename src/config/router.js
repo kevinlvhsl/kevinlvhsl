@@ -18,7 +18,7 @@ import Detail from '../views/detail.vue'
 
 Vue.use(Router)
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     scrollBehavior: () => ({ y: 0 }),
     routes: [
         { path: '/index', component: Index },
