@@ -6,7 +6,6 @@ import Vue from 'vue'
 
 import VueResource from '../../node_modules/vue-resource'
 
-import AV from '../server/'
 
 const host = 'https://api.leancloud.cn/1.1/'
 const yhwxUrl = 'http://mp.weixin.qq.com/s?__biz=MzIyMTIwNDg3MQ==&mid=402529106&idx=1&sn=4b1b434eee5a23dec415ac10f792a893#rd'

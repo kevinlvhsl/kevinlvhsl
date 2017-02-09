@@ -6,5 +6,7 @@ AV.init({
     appId: APP_ID,
     appKey: APP_KEY
 })
-
+window.AV = AV
+window.APP_ID = APP_ID
+window.APP_KEY = APP_KEY
 export default AV

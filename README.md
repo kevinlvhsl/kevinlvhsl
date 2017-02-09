@@ -22,3 +22,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 # leancloud文档 [https://leancloud.cn/docs/leanstorage-started-js.html#_1_用户注册和登录](https://leancloud.cn/docs/leanstorage-started-js.html#_1_用户注册和登录)
 
 # 目前一个用户 kevin 123456 用于开发测试
+# 发布到gh-pages分支 git subtree push --prefix=dist origin gh-pages
