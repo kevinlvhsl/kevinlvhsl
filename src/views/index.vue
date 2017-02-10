@@ -3,8 +3,8 @@
     .container
         //- h1.title WEB FRONT DEVELOPOMENT
         img.headimg(src="~assets/headimg.jpg")
-        h3 KEVIN大叔
-        h2 前端开发菜鸟、VUEJS、微信小程序
+        //- h3 KEVIN大叔
+        //- h2 前端开发菜鸟、VUEJS、微信小程序
         ul.links
             li
                 a.github(target="_blank" href="https://github.com/kevinlvhsl" title="github")
