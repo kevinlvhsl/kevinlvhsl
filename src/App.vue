@@ -1,7 +1,7 @@
 <template lang="jade">
 #app
     transition(name="fade" mode="out-in")
-        router-view.view(@onloginIn="loginIn", @onloginOut="loginOut")
+        router-view.view(@onloginIn="loginIn", @onloginOut="loginOut", v-loading="loading")
     comm-head(@onloginOut="loginOut", :user="user")
     //- side-switch(:is-show="isShow", :changeStatus="changeStatus")
     //- side-nav(:is-show="isShow", :changeStatus="changeStatus", :user="user")
@@ -64,6 +64,11 @@ export default {
             App.ss.set('user', null)
         }
     },
+    computed: {
+        loading () {
+            return !!this.$store.state.loading
+        }
+    },
     mounted () {
         this.$router.beforeEach((route, redirect, next) => {
             this.isShow = false
@@ -72,6 +77,12 @@ export default {
         console.log('session中的user：：', App.ss.get('user'))
         if (App.ss.get('user')) {
             this.$store.dispatch('updateUser', { user: App.ss.get('user') })
+        }
+        App.showLoading = () => {
+            this.$store.commit('changeLoading', 1)
+        }
+        App.hideLoading = () => {
+            this.$store.commit('changeLoading', 0)
         }
     }
 }

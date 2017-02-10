@@ -15,7 +15,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         user: App.ss.get('user') || '',
-        blogs: []
+        blogs: [],
+        loading: 0
     },
     actions: {
         register ({ dispatch, state }, { params, cb }) {
@@ -35,17 +36,24 @@ const store = new Vuex.Store({
             })
         },
         fetchBlogs ({ commit, state }, params) {
+            commit('changeLoading', 1)
             blogApi.fetchList(params, (s) => {
                 console.log('获取回来的数据：：', s)
                 commit('initBlogs', { items: s })
+                commit('changeLoading', 0)
+            }, ()=> {
+                alert('网络不给力， 请稍后再试')
+                commit('changeLoading', 0)
             })
         },
         updateUser ({ commit, dispatch, state }, { user }) {
             commit('setUser', { user })
         },
         saveBlog ({ dispatch, state }, { params, cb }) {
+            commit('changeLoading', 1)
             blogApi.addOneBlog(params, (s) => {
                 console.log('成功的数据：：', s)
+                commit('changeLoading', 0)
                 cb && cb()
             })
         },
@@ -62,6 +70,10 @@ const store = new Vuex.Store({
         },
         initBlogs (state, { items }) {
             state.blogs = items
+        },
+        // 直接修改咯定状态
+        changeLoading (state, st) {
+            state.loading = st
         }
     },
     getters: {

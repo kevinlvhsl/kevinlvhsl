@@ -1,32 +1,28 @@
 <template lang="jade">
-#pg-blogs.view(@scroll="checkScrollTop")
-    //- .left-content
-    //-     left-panel
-    //- .right-content
-    //-     h1 这里是文章收集列表
-    //-     p
-    //-         | github:
-    //-         strong
-    //-             a(target="_blank", href="https://github.com/kevinlvhsl") https://github.com/kevinlvhsl
+#pg-blogs(@scroll="checkScrollTop")
+    h1.title 博文列表
     .container
         .opration-bar
-            el-select(v-model="sort", placeholder="排序方式" @change="resort")
-                el-option( label="阅读数最多", value="views")
-                //- el-option( label="阅读数最多", value="views")
-
-        .blog-list
-            el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
-                .top-image
-                    img(:src="bo.poster || defualtimg")
-                .category
-                    .tpye {{bo.category | en2cn}}
-                .bottom-desc
-                    h3 {{bo.title}}
-                    .desc {{bo.desc}}
-                    .views {{bo.views}}次
-                    .bottom.clearfix(@click="goDetail(bo.id)")
-                        time.time {{ bo.date | dateToCN}}
-                        el-button.button(type=" primary") 去看看
+            el-checkbox.sort-btn(v-model="sort" checked, @change="resort") 热度
+            el-radio-group(v-model="query", @change="resort")
+              el-radio-button(label="" checked) 全 部
+              el-radio-button(v-for="(v, k) in labels", :label="k") {{v}}
+        .no-list(v-if="!blogs.length")
+            .no-desc 没有你喜欢的？换个类目看看吧！
+        .wraper(v-else)
+            .blog-list
+                el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
+                    .top-image
+                        img(:src="bo.poster || defualtimg")
+                    .category
+                        .tpye {{bo.category | en2cn}}
+                    .bottom-desc
+                        h3 {{bo.title}}
+                        .desc {{bo.desc}}
+                        .views {{bo.views}}次
+                        .bottom.clearfix(@click="goDetail(bo.id)")
+                            time.time {{ bo.date | dateToCN}}
+                            el-button.button(type=" primary") 去看看
 
         .page-box
             el-pagination(
@@ -43,6 +39,8 @@ import BackTop from '../components/BackTop.vue'
 
 import { dateToCN } from '../filters/'
 
+const LABELS = {frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
+
 export default {
     name: 'blogs',
     components: {
@@ -54,7 +52,9 @@ export default {
             size: 4,
             currPage: 1,
             isTop: true,
-            sort: ''
+            sort: '',
+            query: '',
+            labels: LABELS
         }
     },
     methods: {
@@ -70,7 +70,7 @@ export default {
             child.checkshow()
         },
         resort () {
-            this.$store.dispatch('fetchBlogs', {sort: this.sort})
+            this.$store.dispatch('fetchBlogs', {sort: this.sort, query: this.query})
         }
     },
     computed: {
@@ -87,8 +87,7 @@ export default {
     filters: {
         dateToCN,
         en2cn (en) {
-            const labels = {frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
-            return labels[en] || '未 知'
+            return LABELS[en] || '未 知'
         }
     },
     created () {
@@ -119,24 +118,47 @@ export default {
 $themeBlue: #20a0ff
 #pg-blogs
     min-width: 1000px
+    text-align: center
     overflow-x: hidden
     overflow-y: scroll
     -webkit-overflow-scrolling: touch
-
+    h1.title
+        padding-top: 20px
     .container
         width: 80%
         margin: 20px auto
         background-color: transparent
         display: flex
         flex-direction: column
+        .opration-bar
+            line-height: 30px
+            text-align: center
+            .sort-btn
+                vertical-align: text-bottom
+                margin-right: 20px
+                color: #A02A1D
+                .el-checkbox__label
+                    font-size: 16px
+        .no-list
+            height: 400px
+            width: 100%
+            padding-top: 200px
+            text-align: center
+            font-size: 14px
+            color: #fff
+            background:
+                image: u('no-list.png')
+                size: 200px 144px
+                position: center 40px
+                repeat: no-repeat
+        .wraper
+            min-height: 400px
         .blog-list
             flex: 1
-            // min-height: 50vh
             width: 80%
             margin: 0 auto
             display: flex
             flex-wrap: wrap
-            // justify-content: space-around
             .item
                 width: 45%
                 border: 2px solid $themeBlue

@@ -47,12 +47,15 @@ export default class Blog extends AV.Object {
      * 获取博客列表
      * @param  {obj}   params 参数（是否有排序等查询条件）
      */
-    fetchList (params, cb) {
+    fetchList (params, cb, err) {
         const query = Blog.getQuery()
         // query.limit(10) // 最多返回 10 条结果
         // query.skip((page - 1) * 10)
         if (params.sort) {
-            query.addDescending(params.sort)
+            query.addDescending('views')
+        }
+        if (params.query) {
+            query.equalTo('category', params.query)
         }
         query.addDescending('createdAt')   //按创建时间降序
         query.find().then((data) => {
@@ -68,6 +71,9 @@ export default class Blog extends AV.Object {
             cb && cb(blogs)
         }, (err) => {
             console.error(err)
+        }).catch(() =>{
+            cb && cb([])
+            err && err()
         })
     }
     /**

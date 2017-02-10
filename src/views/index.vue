@@ -1,5 +1,5 @@
 <template lang="jade">
-#pg-index.view
+#pg-index
     .container
         //- h1.title WEB FRONT DEVELOPOMENT
         img.headimg(src="~assets/headimg.jpg")
