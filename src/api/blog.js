@@ -43,11 +43,18 @@ export default class Blog extends AV.Object {
             err && err()
         })
     }
-
-    fetchList (page, cb) {
+    /**
+     * 获取博客列表
+     * @param  {obj}   params 参数（是否有排序等查询条件）
+     */
+    fetchList (params, cb) {
         const query = Blog.getQuery()
         // query.limit(10) // 最多返回 10 条结果
         // query.skip((page - 1) * 10)
+        if (params.sort) {
+            query.addDescending(params.sort)
+        }
+        query.addDescending('createdAt')   //按创建时间降序
         query.find().then((data) => {
             const blogs = []
             if (data && data.length > 0) {
@@ -71,11 +78,29 @@ export default class Blog extends AV.Object {
         const query = Blog.getQuery()
         query.get(id).then((data) => {
             console.log('data::', data)
-            cb && cb(data.attributes)
+            this.updateView(id, (v) => {
+                data.attributes.views = v
+                cb && cb(data.attributes)
+            })
         }, (error) => {
             // 异常处理
             console.log('获取Blog对象detail时报错了')
         })
+    }
+
+    updateView (id, cb) {
+        const blog = AV.Object.createWithoutData('Blog', id)
+          blog.save().then(function (bo) {
+            bo.increment('views', 1)
+            bo.fetchWhenSave(true)
+            return bo.save()
+          }).then(function (blog) {
+            console.log('最新次数', blog.get('views'))
+            cb && cb(blog.get('views'))
+            // 使用了 fetchWhenSave 选项，save 成功之后即可得到最新的 views 值
+          }, function (error) {
+            // 异常处理
+          })
     }
 }
 

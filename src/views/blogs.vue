@@ -9,6 +9,11 @@
     //-         strong
     //-             a(target="_blank", href="https://github.com/kevinlvhsl") https://github.com/kevinlvhsl
     .container
+        .opration-bar
+            el-select(v-model="sort", placeholder="排序方式" @change="resort")
+                el-option( label="阅读数最多", value="views")
+                //- el-option( label="阅读数最多", value="views")
+
         .blog-list
             el-card.item(v-for="bo in blogs", :body-style="{ padding: '0px' }")
                 .top-image
@@ -18,6 +23,7 @@
                 .bottom-desc
                     h3 {{bo.title}}
                     .desc {{bo.desc}}
+                    .views {{bo.views}}次
                     .bottom.clearfix(@click="goDetail(bo.id)")
                         time.time {{ bo.date | dateToCN}}
                         el-button.button(type=" primary") 去看看
@@ -47,7 +53,8 @@ export default {
             defualtimg: 'https://dn-yaotv.qbox.me/appintv_eae657cf33aeb2bf01cf64a1a7331ac1.jpeg',
             size: 4,
             currPage: 1,
-            isTop: true
+            isTop: true,
+            sort: ''
         }
     },
     methods: {
@@ -61,6 +68,9 @@ export default {
         checkScrollTop () {
             const child = this.$refs.childbtn //获取子组件实例
             child.checkshow()
+        },
+        resort () {
+            this.$store.dispatch('fetchBlogs', {sort: this.sort})
         }
     },
     computed: {
@@ -81,8 +91,10 @@ export default {
             return labels[en] || '未 知'
         }
     },
+    created () {
+        this.$store.dispatch('fetchBlogs', {sort: this.sort})
+    },
     mounted () {
-        this.$store.dispatch('fetchBlogs')
         // console.log(document.documentElement.scrollTop)
         // let lastTop = 0
         // let currTop = 0
@@ -103,6 +115,7 @@ export default {
 }
 </script>
 <style lang="sass">
+@import '../sass/main.sass'
 $themeBlue: #20a0ff
 #pg-blogs
     min-width: 1000px
@@ -165,6 +178,16 @@ $themeBlue: #20a0ff
                 .bottom-desc
                     height: 120px
                     padding: 10px 14px
+                    .views
+                        position: absolute
+                        bottom: 10px
+                        left: 12px
+                        padding-left: 24px
+                        background:
+                            image: u('views.png')
+                            size: 20px 14px
+                            position: 0px center
+                            repeat: no-repeat
                     .desc
                         margin: 8px auto
                         width: 260px
@@ -177,7 +200,7 @@ $themeBlue: #20a0ff
                         word-break: break-all
                     .button
                         float: right
-                        margin-right: 20px
+                        margin-right: 10px
                         &:after
                             clear: both
         .el-pagination

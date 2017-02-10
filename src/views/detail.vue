@@ -5,6 +5,7 @@
         | 分类：
         span.category {{currBlog.category | en2cn}} &gt;
         .mark(v-for="mark in currBlog.type") {{mark}}
+        .read-count 阅读次数：{{currBlog.views}}次
     .container
         vue-markdown( emoji=true, :source="currBlog.content")
     back-top(ref="childbtn", target-id="#pg-detail")
@@ -71,12 +72,12 @@ export default {
     overflow-y: scroll
     .title
         font-size: 32px
-        line-height: 80px
+        line-height: 60px
         text-align: center
     .blog-marks
         padding: 10px
         font-weight: 600
-        line-height: 40px
+        line-height: 36px
         font-size: 14px
         .category
             font-size: 16px
