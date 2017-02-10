@@ -3,11 +3,9 @@ import AV from './db'
 import App from '../common/app'
 
 export default class Blog extends AV.Object {
-    // constractor(){
-    //     super()
-    // }
+
     static getQuery () {
-        return new AV.Query(this.name)
+        return new AV.Query('Blog')
     }
 
     addOneBlog (obj, cb) {
@@ -70,7 +68,7 @@ export default class Blog extends AV.Object {
      * @param  {Function} cb 页面接口的回调
      */
     fetchItem (id, cb) {
-        const query = Blog.getQuery('Blog')
+        const query = Blog.getQuery()
         query.get(id).then((data) => {
             console.log('data::', data)
             cb && cb(data.attributes)
