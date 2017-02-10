@@ -38,18 +38,18 @@ module.exports = {
     },
     module: {
         preLoaders: [
-            // {
-            //     test: /\.vue$/,
-            //     loader: 'eslint',
-            //     include: projectRoot,
-            //     exclude: /node_modules/
-            // },
-            // {
-            //     test: /\.js$/,
-            //     loader: 'eslint',
-            //     include: projectRoot,
-            //     exclude: /node_modules/|/common/
-            // }
+            {
+                test: /\.vue$/,
+                loader: 'eslint',
+                include: projectRoot,
+                exclude: /node_modules/
+            },
+            {
+                test: /\.js$/,
+                loader: 'eslint',
+                include: projectRoot,
+                exclude: /node_modules/|/common/
+            }
         ],
         loaders: [
             {

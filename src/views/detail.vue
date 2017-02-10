@@ -6,39 +6,71 @@
         span.category {{currBlog.category | en2cn}} &gt;
         .mark(v-for="mark in currBlog.type") {{mark}}
         .read-count 阅读次数：{{currBlog.views}}次
+            .admin-editor(v-if="user" style="display:inline-block;margin-left: 30px")
+                el-button(size="small", v-if="!isEditor" @click.native="isEditor = true") 编辑
+                el-button(size="small", v-if="isEditor" @click.native="save") 保存
     .container
-        vue-markdown( emoji=true, :source="currBlog.content")
+        vue-markdown(v-if="!isEditor", emoji=true, :source="currBlog.content")
+        textarea(v-if="isEditor", v-model="currBlog.content", rows="30", style="max-width:100%;width:100%" placeholder="在这里输入内容(markdown格式)")
     back-top(ref="childbtn", target-id="#pg-detail")
 
 </template>
 <script>
 import BackTop from '../components/BackTop.vue'
-import VueMarkdown from 'vue-markdown'
+
+import BlogApi from '../api/blog'
 
 export default {
     name: 'detail',
     data () {
         return {
-            currBlog: ''
+            currBlog: '',
+            isEditor: false
         }
     },
     components: {
-        BackTop,
-        VueMarkdown
+        BackTop
     },
     methods: {
         checkScrollTop () {
-            const child = this.$refs.childbtn //获取子组件实例
+            const child = this.$refs.childbtn // 获取子组件实例
             child.checkshow()
         },
         backTop () {
             document.getElementById('pg-detail').scrollTop = 0
             this.isTop = true
+        },
+        save () {
+            const self = this
+            this.$store.dispatch('updateBlog', {
+                id: this.currBlog.id,
+                content: this.currBlog.content,
+                cb: () => {
+                    self.isEditor = false
+                }
+            })
+            // BlogApi.updateBlog(this.currBlog.id, this.currBlog.content)
+            // this.$store.dispatch('saveBlog', {
+            //     params: this.currBlog,
+            //     cb: () => {
+            //         this.$message({
+            //             showClose: true,
+            //             type: 'success',
+            //             message: '修改成功!'
+            //         })
+            //         this.isEditor = false
+            //     }
+            // })
+        }
+    },
+    computed: {
+        user () {
+            return this.$store.state.user
         }
     },
     filters: {
         en2cn (en) {
-            const labels = {frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
+            const labels = { frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
             return labels[en] || '未 知'
         }
     },

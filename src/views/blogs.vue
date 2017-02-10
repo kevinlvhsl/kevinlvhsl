@@ -3,7 +3,7 @@
     h1.title 博文列表
     .container
         .opration-bar
-            el-checkbox.sort-btn(v-model="sort" checked, @change="resort") 热度
+            el-checkbox.sort-btn(v-model="hot" @change="resort") 热度
             el-radio-group(v-model="query", @change="resort")
               el-radio-button(label="" checked) 全 部
               el-radio-button(v-for="(v, k) in labels", :label="k") {{v}}
@@ -39,7 +39,7 @@ import BackTop from '../components/BackTop.vue'
 
 import { dateToCN } from '../filters/'
 
-const LABELS = {frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
+const LABELS = { frontend: '前 端', backend: '后 端', utils: '工 具', live: '生 活', other: '其 他' }
 
 export default {
     name: 'blogs',
@@ -49,10 +49,10 @@ export default {
     data () {
         return {
             defualtimg: 'https://dn-yaotv.qbox.me/appintv_eae657cf33aeb2bf01cf64a1a7331ac1.jpeg',
-            size: 4,
+            size: 6,
             currPage: 1,
             isTop: true,
-            sort: '',
+            hot: true,
             query: '',
             labels: LABELS
         }
@@ -66,11 +66,11 @@ export default {
             console.log(curr)
         },
         checkScrollTop () {
-            const child = this.$refs.childbtn //获取子组件实例
+            const child = this.$refs.childbtn // 获取子组件实例
             child.checkshow()
         },
         resort () {
-            this.$store.dispatch('fetchBlogs', {sort: this.sort, query: this.query})
+            this.$store.dispatch('fetchBlogs', { sort: this.hot, query: this.query })
         }
     },
     computed: {
@@ -91,7 +91,7 @@ export default {
         }
     },
     created () {
-        this.$store.dispatch('fetchBlogs', {sort: this.sort})
+        this.$store.dispatch('fetchBlogs', { sort: this.hot })
     },
     mounted () {
         // console.log(document.documentElement.scrollTop)
@@ -118,11 +118,11 @@ export default {
 $themeBlue: #20a0ff
 #pg-blogs
     min-width: 1000px
-    text-align: center
     overflow-x: hidden
     overflow-y: scroll
     -webkit-overflow-scrolling: touch
     h1.title
+        text-align: center
         padding-top: 20px
     .container
         width: 80%

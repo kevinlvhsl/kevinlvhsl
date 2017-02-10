@@ -11,6 +11,8 @@
 
 import Vue from 'vue'
 
+import VueMarkdown from 'vue-markdown'
+
 import CommHead from './components/commhead.vue'
 
 import SideSwitch from './components/sideSwitch.vue'
@@ -24,6 +26,7 @@ import '../node_modules/element-ui/lib/theme-default/index.css'
 // window.el = Element
 // console.log(Element)
 Vue.use(Element)
+Vue.component('vue-markdown', VueMarkdown)
 
 // import Button from 'element-ui/lib/button'
 // import Menu from 'element-ui/lib/menu'

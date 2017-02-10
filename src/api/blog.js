@@ -2,10 +2,12 @@ import AV from './db'
 
 import App from '../common/app'
 
+const CLASS_NAME = 'Blog'
+
 export default class Blog extends AV.Object {
 
     static getQuery () {
-        return new AV.Query('Blog')
+        return new AV.Query(CLASS_NAME)
     }
 
     addOneBlog (obj, cb) {
@@ -14,6 +16,7 @@ export default class Blog extends AV.Object {
         bolg.set('category', obj.category)
         bolg.set('desc', obj.desc)
         bolg.set('poster', obj.poster)
+        bolg.set('views', obj.views || 1)
         bolg.set('type', obj.type)
         bolg.set('content', obj.content)
         bolg.set('date', Math.floor(Date.now() / 1000))
@@ -25,6 +28,16 @@ export default class Blog extends AV.Object {
         }, function (error) {
             // 失败之后执行其他逻辑
             console.log('Failed to create new object, with error message: ' + error.message)
+        })
+    }
+
+    updateBlog (id, content, cb) {
+        // 第一个参数是 className，第二个参数是 objectId
+        const blog = AV.Object.createWithoutData(CLASS_NAME, id)
+        // 修改指定属性
+        blog.set('content', content)
+        blog.save().then((b) => {
+            cb && cb(b)
         })
     }
 
@@ -57,7 +70,7 @@ export default class Blog extends AV.Object {
         if (params.query) {
             query.equalTo('category', params.query)
         }
-        query.addDescending('createdAt')   //按创建时间降序
+        query.addDescending('createdAt')   // 按创建时间降序
         query.find().then((data) => {
             const blogs = []
             if (data && data.length > 0) {
@@ -69,9 +82,9 @@ export default class Blog extends AV.Object {
                 console.log('blogs::', blogs)
             }
             cb && cb(blogs)
-        }, (err) => {
-            console.error(err)
-        }).catch(() =>{
+        }, (error) => {
+            console.error(error)
+        }).catch(() => {
             cb && cb([])
             err && err()
         })
@@ -83,9 +96,9 @@ export default class Blog extends AV.Object {
     fetchItem (id, cb) {
         const query = Blog.getQuery()
         query.get(id).then((data) => {
-            console.log('data::', data)
             this.updateView(id, (v) => {
                 data.attributes.views = v
+                data.attributes.id = id
                 cb && cb(data.attributes)
             })
         }, (error) => {
@@ -96,17 +109,17 @@ export default class Blog extends AV.Object {
 
     updateView (id, cb) {
         const blog = AV.Object.createWithoutData('Blog', id)
-          blog.save().then(function (bo) {
+        blog.save().then(function (bo) {
             bo.increment('views', 1)
             bo.fetchWhenSave(true)
             return bo.save()
-          }).then(function (blog) {
-            console.log('最新次数', blog.get('views'))
-            cb && cb(blog.get('views'))
+        }).then(function (bo2) {
+            console.log('最新次数', bo2.get('views'))
+            cb && cb(bo2.get('views'))
             // 使用了 fetchWhenSave 选项，save 成功之后即可得到最新的 views 值
-          }, function (error) {
+        }, function (error) {
             // 异常处理
-          })
+        })
     }
 }
 

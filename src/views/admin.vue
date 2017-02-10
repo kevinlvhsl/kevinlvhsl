@@ -35,7 +35,7 @@
                 .right-preview
                     vue-markdown( emoji=true, :source="form.content")
             el-form-item
-                el-button(v-show="!lock" type="primary submit", @click.native.prevent="onSubmit") 立即发布
+                el-button(type="primary submit", @click.native.prevent="onSubmit") 立即发布
                 el-button 取消
 
 
@@ -43,14 +43,11 @@
 
 <script>
 import BlogApi from '../api/blog'
-import VueMarkdown from 'vue-markdown'
-import api from '../api'
+
+// import VueMarkdown from 'vue-markdown'
 
 export default {
     name: 'admin',
-    components: {
-        VueMarkdown
-    },
     data () {
         return {
             lock: false,
@@ -63,11 +60,11 @@ export default {
                 { name: '其他', value: 'other' }
             ],
             types: {
-                frontend: ['HTML5', 'CSS3', 'JS', 'VUEJS'],
-                backend: ['JAVA', 'PHP', 'PYTHON'],
-                utils: ['sublime', 'myeclipse'],
-                live: ['篮球', '旅游'],
-                other: ['八卦']
+                frontend: ['HTML5', 'CSS3', 'JS', 'VUEJS', 'ANGULARJS', 'REACTJS'],
+                backend: ['JAVA', 'PHP', 'PYTHON', 'NODEJS'],
+                utils: ['sublime', 'myeclipse', 'git', 'svn'],
+                live: ['篮球', '旅游', '电影'],
+                other: ['八卦', '新闻']
             },
             markdown: '1',
             form: {
@@ -143,8 +140,8 @@ export default {
     },
     mounted () {
         setInterval(() => {
-            this.source = new Date().toLocaleTimeString();
-        }, 1000);
+            this.source = new Date().toLocaleTimeString()
+        }, 1000)
         // api.loginAuthorize()
     }
 }

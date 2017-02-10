@@ -41,15 +41,15 @@ const store = new Vuex.Store({
                 console.log('获取回来的数据：：', s)
                 commit('initBlogs', { items: s })
                 commit('changeLoading', 0)
-            }, ()=> {
+            }, () => {
                 alert('网络不给力， 请稍后再试')
                 commit('changeLoading', 0)
             })
         },
-        updateUser ({ commit, dispatch, state }, { user }) {
+        updateUser ({ commit, state }, { user }) {
             commit('setUser', { user })
         },
-        saveBlog ({ dispatch, state }, { params, cb }) {
+        saveBlog ({ commit, state }, { params, cb }) {
             commit('changeLoading', 1)
             blogApi.addOneBlog(params, (s) => {
                 console.log('成功的数据：：', s)
@@ -57,8 +57,19 @@ const store = new Vuex.Store({
                 cb && cb()
             })
         },
-        getBlogItem ({ commit, dispatch, state }, { params, cb }) {
-            blogApi.fetchItem(params, cb)
+        updateBlog ({ commit, state }, { id, content, cb }) {
+            commit('changeLoading', 1)
+            blogApi.updateBlog(id, content, () => {
+                cb && cb()
+                commit('changeLoading', 0)
+            })
+        },
+        getBlogItem ({ commit, state }, { params, cb }) {
+            commit('changeLoading', 1)
+            blogApi.fetchItem(params, (b) => {
+                cb && cb(b)
+                commit('changeLoading', 0)
+            })
         }
     },
     mutations: {
