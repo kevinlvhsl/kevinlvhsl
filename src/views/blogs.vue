@@ -115,7 +115,7 @@ export default {
 </script>
 <style lang="sass">
 @import '../sass/main.sass'
-$themeBlue: #20a0ff
+
 #pg-blogs
     min-width: 1000px
     overflow-x: hidden

@@ -30,8 +30,6 @@
             el-col(:span='24')
                 | design & code by @kevinlvhsl,nodeJS + vuejs 感谢leancloud.cn提供存储空间
 
-
-
 </template>
 
 <script>
@@ -48,7 +46,6 @@ export default {
         }
     },
     methods: {
-
     },
     beforeDistory () {
     },

@@ -21,6 +21,8 @@
             el-menu-item(index="blogs") BLOG
         router-link(to="about")
             el-menu-item(index="about") ABOUT ME
+        router-link(to="game")
+            el-menu-item(index="game") GAME
         router-link(to="admin", v-if="user")
             el-menu-item(index="admin") ADMIN
         router-link(to="detail", index="detail")
