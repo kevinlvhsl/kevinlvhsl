@@ -48,7 +48,7 @@ export default {
     },
     data () {
         return {
-            defualtimg: 'https://dn-yaotv.qbox.me/appintv_eae657cf33aeb2bf01cf64a1a7331ac1.jpeg',
+            defualtimg: 'https://dn-yaotv.qbox.me/appintv_9de0d279d11d24a9308cf9af7bde1154.jpeg',
             size: 6,
             currPage: 1,
             isTop: true,
