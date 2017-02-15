@@ -34,7 +34,6 @@
         @playing="isPlaying = true",
         @pause="isPlaying = false"
     )
-        //- controls="controls"
 </template>
 
 <script>
@@ -47,8 +46,7 @@ export default {
         return {
             msg: 'Welcome to kevin’ personal zone',
             url: yueban,
-            isPlaying: true,
-            user: this.user
+            isPlaying: true
         }
     },
     methods: {
