@@ -3,6 +3,8 @@
     transition(name="fade" mode="out-in")
         router-view.view(@onloginIn="loginIn", @onloginOut="loginOut", v-loading.fullscreen.lock="loading", element-loading-text="加载中")
     comm-head(@onloginOut="loginOut", :user="user")
+    .loading-ball(v-show="loading")
+        em
     //- side-switch(:is-show="isShow", :changeStatus="changeStatus")
     //- side-nav(:is-show="isShow", :changeStatus="changeStatus", :user="user")
 </template>
