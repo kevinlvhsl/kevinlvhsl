@@ -3,16 +3,16 @@ import AV from './db'
 import App from '../common/app'
 
 export default class Blog extends AV.Object {
-
+    constructor () {
+        super()
+        this.name = 'Blog'
+    }
     static getQuery () {
         return new AV.Query('Blog')
     }
 
     addOneBlog (obj, cb) {
-        // 原来： blog = new Blog()
-        // 为了避免压缩之后类名换成了压缩后的t，故用这个方法
-        const Bolg = new AV.Object.extend('Blog')
-        const blog = new Bolg()
+        const blog = new Blog()
         blog.set('title', obj.title)
         blog.set('category', obj.category)
         blog.set('desc', obj.desc)
