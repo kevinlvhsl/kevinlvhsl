@@ -2,26 +2,27 @@ import AV from './db'
 
 import App from '../common/app'
 
-const CLASS_NAME = 'Blog'
-
 export default class Blog extends AV.Object {
 
     static getQuery () {
-        return new AV.Query(CLASS_NAME)
+        return new AV.Query('Blog')
     }
 
     addOneBlog (obj, cb) {
-        const bolg = new Blog()
-        bolg.set('title', obj.title)
-        bolg.set('category', obj.category)
-        bolg.set('desc', obj.desc)
-        bolg.set('poster', obj.poster)
-        bolg.set('views', obj.views || 1)
-        bolg.set('type', obj.type)
-        bolg.set('content', obj.content)
-        bolg.set('date', Math.floor(Date.now() / 1000))
+        // 原来： blog = new Blog()
+        // 为了避免压缩之后类名换成了压缩后的t，故用这个方法
+        const Bolg = new AV.Object.extend('Blog')
+        const blog = new Bolg()
+        blog.set('title', obj.title)
+        blog.set('category', obj.category)
+        blog.set('desc', obj.desc)
+        blog.set('poster', obj.poster)
+        blog.set('views', obj.views || 1)
+        blog.set('type', obj.type)
+        blog.set('content', obj.content)
+        blog.set('date', Math.floor(Date.now() / 1000))
 
-        bolg.save().then((blog2) => {
+        blog.save().then((blog2) => {
             // 成功保存之后，执行其他逻辑.
             console.log('New object created with objectId: ' + blog2.id)
             cb && cb(blog2)
@@ -33,7 +34,7 @@ export default class Blog extends AV.Object {
 
     updateBlog (id, content, cb) {
         // 第一个参数是 className，第二个参数是 objectId
-        const blog = AV.Object.createWithoutData(CLASS_NAME, id)
+        const blog = AV.Object.createWithoutData('Blog', id)
         // 修改指定属性
         blog.set('content', content)
         blog.save().then((b) => {
