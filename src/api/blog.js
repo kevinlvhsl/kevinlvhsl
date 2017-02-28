@@ -2,7 +2,7 @@ import AV from './db'
 
 import App from '../common/app'
 
-export default class Blog extends AV.Object {
+class Blog extends AV.Object {
     constructor () {
         super()
         this.name = 'Blog'
@@ -125,5 +125,5 @@ export default class Blog extends AV.Object {
 }
 
 AV.Object.register(Blog)
-
+export default Blog
 // https://leancloud.cn/docs/leanstorage-started-js.html#_1_用户注册和登录

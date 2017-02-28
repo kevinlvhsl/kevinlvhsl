@@ -45,7 +45,7 @@
     "http-proxy-middleware": "^0.17.2",
     "jade-loader": "^0.8.0",
     "json-loader": "^0.5.4",
-    "node-sass": "^3.10.0",
+    "node-sass": "^4.5.0",
     "opn": "^4.0.2",
     "ora": "^0.3.0",
     "pug": "^2.0.0-beta6",
