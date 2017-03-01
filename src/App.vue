@@ -2,7 +2,7 @@
 #app
     transition(name="fade" mode="out-in")
         router-view.view(@onloginIn="loginIn", @onloginOut="loginOut", v-loading.fullscreen.lock="loading", element-loading-text="加载中")
-    comm-head(@onloginOut="loginOut", :user="user")
+    comm-head(@onloginOut="loginOut")
     .loading-ball(v-show="loading")
         em
     //- side-switch(:is-show="isShow", :changeStatus="changeStatus")
@@ -45,9 +45,10 @@ export default {
             console.log('改变状态')
             this.isShow = !this.isShow
         },
-        loginIn () {
-            this.user = App.ss.get('user')
-            this.$store.dispatch('updateUser', App.ss.get('user'))
+        loginIn (user) {
+            // debugger
+            // this.user = App.ss.get('user')
+            // this.$store.dispatch('updateUser', user)
         },
         loginOut () {
             this.$store.dispatch('updateUser', { user: null })
@@ -67,6 +68,7 @@ export default {
             this.isShow = false
             next()
         })
+
         console.log('session中的user：：', App.ss.get('user'))
         if (App.ss.get('user')) {
             this.$store.dispatch('updateUser', { user: App.ss.get('user') })

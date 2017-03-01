@@ -84,10 +84,10 @@ export default {
                     this.$store.dispatch('loginIn',
                         {
                             params: this.form,
-                            cb: () => {
+                            cb: (user) => {
                                 console.log('这里是登录成功的回调')
                                 this.success = true
-                                this.$emit('onloginIn')
+                                this.$emit('onloginIn', user)
                                 this.$message({
                                     showClose: true,
                                     type: 'success',

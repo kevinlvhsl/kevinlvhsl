@@ -6,7 +6,7 @@
         p 篮球-星翼空间
     .welcome(v-if="user")
         strong {{user.username}} &nbsp;
-        a(v-if="user", @click="loginOut") 注销
+        a(@click="loginOut") 注销
         //- 登录需要手动输入url
          //-     span(v-if="!user", @click="goLoginIn") 登录
     //- el-menu(class="app-nav", :default-active="currentRoute", router=true, class="el-menu-demo", mode="horizontal" @select="handleSelect")
