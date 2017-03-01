@@ -63,8 +63,8 @@ export default {
                 frontend: ['HTML5', 'CSS3', 'JS', 'VUEJS', 'ANGULARJS', 'REACTJS'],
                 backend: ['JAVA', 'PHP', 'PYTHON', 'NODEJS'],
                 utils: ['sublime', 'myeclipse', 'git', 'svn'],
-                live: ['篮球', '旅游', '电影'],
-                other: ['八卦', '新闻']
+                live: ['篮球', '旅游', '电影', '音乐', '阅读'],
+                other: ['八卦', '新闻', '笑话', '关系']
             },
             markdown: '1',
             form: {
