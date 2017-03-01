@@ -6,7 +6,7 @@ In this build:
 - static/img/bg.202d607.jpg
 - static/img/logo.273c66b.png
 - static/mp3/yueban.16a7142.mp3
-- static/js/manifest.9ceb63c6731e9ba5d3bf.js
-- static/js/vendor.2b689bb39b9ad5e06a58.js
-- static/js/app.c0776dc0c3d233ab74dd.js
-- static/css/app.35b6c195eb1c219cee0c413027293cf5.css
+- static/js/manifest.067ccc1ec6ca89f89771.js
+- static/js/vendor.2574ecf6c6f9529eea23.js
+- static/js/app.301f346fa3843d262e94.js
+- static/css/app.21ca1260caa3c9126a6a417684c941a0.css
