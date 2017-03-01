@@ -19,7 +19,7 @@ npm run build
 
 ```
 leancloud文档 [https://leancloud.cn/docs/leanstorage_guide-js.html](https://leancloud.cn/docs/leanstorage_guide-js.html)
-> 顺便爆个小技巧： 发布项目下的某个目录(我这里是dist)到到gh-pages分支   git subtree push --prefix=dist origin gh-pages
+> 顺便爆个小技巧： 发布项目下的某个目录(我这里是dist)到到gh-pages分支   `git subtree push --prefix=dist origin gh-pages`
 
 > For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 

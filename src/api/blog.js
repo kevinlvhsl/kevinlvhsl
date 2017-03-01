@@ -124,6 +124,7 @@ class Blog extends AV.Object {
     }
 }
 
-AV.Object.register(Blog)
+// AV.Object.register(Blog)
+AV.Object.register(Blog, 'Blog')
 export default Blog
 // https://leancloud.cn/docs/leanstorage-started-js.html#_1_用户注册和登录
