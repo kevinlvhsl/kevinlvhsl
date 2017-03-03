@@ -7,13 +7,16 @@
 </template>
 
 <script>
+import GameLogApi from '../api/gameLog'
+
 export default {
     data () {
         return {
             started: false,
             time: 0,
             timer: '',
-            puzzles: []
+            puzzles: [],
+            api: GameLogApi
         }
     },
     methods: {
@@ -61,16 +64,37 @@ export default {
         passFn () {
             if (this.puzzles[15] === '') {
                 const newPuzzles = this.puzzles.slice(0, 15)
-                const isPass = newPuzzles.every((e, i) => e === i + 1)
+                const isPass = newPuzzles.some((e, i) => e === i + 1)
                 if (isPass) {
                     App.log('恭喜，闯关成功！')
                     this.started = false
-                    this.time = 0
-                    this.$message({
-                        showClose: true,
-                        type: 'success',
-                        $message: '恭喜，闯关成功！'
+
+                    this.$prompt(`英雄，您用时${this.time}秒，留下您的大名吧！`, '恭喜，闯关成功！', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消'
+                    }).then(({ value }) => {
+                        this.$store.dispatch('saveGameLog', {
+                            data: {
+                                name: value,
+                                times: this.time
+                            },
+                            cb: (res) => {
+                                console.log('添加成了', res)
+                                this.$message({
+                                    type: 'success',
+                                    message: '你的邮箱是: ' + value ? value : '无名英雄'
+                                })
+                                this.time = 0
+                            }
+                        })
                     })
+                    // .catch(() => {
+                    //     this.$message({
+                    //         type: 'info',
+                    //         message: '您不肯留名'
+                    //     })
+                    //     this.time = 0
+                    // })
                 }
             }
         },
@@ -95,6 +119,9 @@ export default {
     },
     mounted () {
         this.render()
+        // GameLogApi.fetchList().then((res) => {
+        //     console.log(res)
+        // })
     }
 }
 </script>

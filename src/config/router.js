@@ -16,7 +16,7 @@ import Admin from '../views/admin.vue'
 
 import Detail from '../views/detail.vue'
 
-import Game from '../components/game.vue'
+import Game from '../views/game.vue'
 
 Vue.use(Router)
 export default new Router({

@@ -5,10 +5,12 @@ import Vuex from 'vuex'
 import userApi from '../api/user'
 
 import BlogApi from '../api/blog'
+import GameLogApi from '../api/gameLog'
 
 import App from '../common/app'
 
 const blogApi = new BlogApi()
+const gameLogApi = new GameLogApi()
 
 Vue.use(Vuex)
 
@@ -56,6 +58,9 @@ const store = new Vuex.Store({
                 commit('changeLoading', 0)
                 cb && cb()
             })
+        },
+        saveGameLog({ commit, state }, { data, cb }) {
+            gameLogApi.addOneLog(data, cb)
         },
         updateBlog ({ commit, state }, { id, content, cb }) {
             commit('changeLoading', 1)
