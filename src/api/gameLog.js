@@ -20,7 +20,7 @@ class GameLog extends AV.Object {
         log.save().then((gameLog) => {
             // 成功保存之后，执行其他逻辑.
             console.log('New object created with objectId: ' + gameLog.id)
-            cb && cb(gameLog)
+            cb && cb(gameLog.attributes)
         }, function (error) {
             // 失败之后执行其他逻辑
             console.log('Failed to create new object, with error message: ' + error.message)
@@ -32,12 +32,12 @@ class GameLog extends AV.Object {
      * 获取博客列表
      * @param  {obj}   params 参数（是否有排序等查询条件）
      */
-    fetchList (params, cb, err) {
+    fetchList (cb, err) {
         const query = GameLog.getQuery()
         // query.limit(10) // 最多返回 10 条结果
         // query.skip((page - 1) * 10)
 
-        query.addDescending('times')   // 按创建时间降序
+        query.addAscending('times')   // 按用时少在前
         query.find().then((data) => {
             const gameLogs = []
             if (data && data.length > 0) {

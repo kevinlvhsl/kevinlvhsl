@@ -1,4 +1,4 @@
-export function cutstr(value, len) {
+export function cutstr(value, len = 30) {
     let str_length = 0
     let str_len = 0
     let str_cut = ''
@@ -33,11 +33,12 @@ export function asc2char (value) {
 
 export function convertDate (value) {
     const o = new Date(value * 1000)
+    const year = o.getFullYear()
     const month = (o.getMonth() + 1 < 10) ? '0' + (o.getMonth() + 1) : o.getMonth() + 1
     const day = (o.getDate() < 10) ? '0' + (o.getDate()) : o.getDate()
     const hour = (o.getHours() < 10) ? '0' + (o.getHours()) : o.getHours()
     const minute = (o.getMinutes() < 10) ? '0' + (o.getMinutes()) : o.getMinutes()
-    return `${month}.${day} ${hour}:${minute}`
+    return `${year}.${month}.${day} ${hour}:${minute}`
 }
 
 export function dateToCN (value) {

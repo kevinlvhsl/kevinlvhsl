@@ -1,13 +1,23 @@
 <template lang="jade">
 .game-box
+    .container
         ul.puzzle-wrap
             li(:class="{'puzzle': true, 'puzzle-empty': !puzzle}", v-for='(puzzle, index) in puzzles', v-text='puzzle', @click='moveFn(index)')
-        el-button.btn-reset(v-if="!started", @click.native="startGame") 开始游戏
-        div(v-if="started") {{time}}秒
+            transition(name="fade")
+                .start-mask(v-show="!started")
+                    el-button.btn-reset(@click.native="startGame") 开始游戏
+        ul.heroes-list
+            .curr-time(v-if="started") 本次用时：{{time}} 秒
+            h2 英 雄 榜
+            li.log-line(v-for="(hero, index) in heroes")
+                strong {{index+1}}
+                .name {{hero.name | cutstr}}
+                time  用时{{hero.times}}秒 &nbsp; {{hero.date | convertDate}}
 </template>
 
 <script>
 import GameLogApi from '../api/gameLog'
+import { convertDate, cutstr } from '../filters/'
 
 export default {
     data () {
@@ -15,8 +25,8 @@ export default {
             started: false,
             time: 0,
             timer: '',
-            puzzles: [],
-            api: GameLogApi
+            puzzles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            heroes: []
         }
     },
     methods: {
@@ -64,7 +74,7 @@ export default {
         passFn () {
             if (this.puzzles[15] === '') {
                 const newPuzzles = this.puzzles.slice(0, 15)
-                const isPass = newPuzzles.some((e, i) => e === i + 1)
+                const isPass = newPuzzles.every((e, i) => e === i + 1)
                 if (isPass) {
                     App.log('恭喜，闯关成功！')
                     this.started = false
@@ -82,8 +92,9 @@ export default {
                                 console.log('添加成了', res)
                                 this.$message({
                                     type: 'success',
-                                    message: '你的邮箱是: ' + value ? value : '无名英雄'
+                                    message: `你的大名是: ${value || '无名英雄'}`
                                 })
+                                this.initHeroes()
                                 this.time = 0
                             }
                         })
@@ -115,13 +126,44 @@ export default {
         clearTimer () {
             clearInterval(this.timer)
             this.timer = null
+        },
+        initHeroes () {
+            this.$store.dispatch('getGameLogs', (res) => {
+                this.heroes = res
+            })
         }
     },
+    filters: {
+        convertDate,
+        cutstr
+    },
     mounted () {
-        this.render()
-        // GameLogApi.fetchList().then((res) => {
-        //     console.log(res)
-        // })
+        // this.render()
+        this.initHeroes()
+    },
+    beforeRouteEnter (to, from, next) {
+        console.log('game enter')
+        next()
+    },
+    beforeRouteLeave (to, from, next) {
+        console.log('game leave')
+        if (this.started) {
+            this.$confirm('游戏还未结束，确定要离开？', '警告', {
+                confirmButtonText: '确认离开',
+                cancelButtonText: '继续玩',
+                type: 'warning'
+            }).then(() => {
+                this.started = false
+                this.clearTimer()
+                next()
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                })
+                next(false)
+            })
+        } else next()
     }
 }
 </script>
@@ -130,40 +172,84 @@ export default {
 @import '../sass/main.sass'
 
 .game-box
-    width: 80vh
-    height: 80vh
-    margin: 0px auto
-    text-align: center
+    min-width: 1200px
+    min-height: 500px
+    .container
+        width: 100%
+        height: 100%
+        margin: 0px auto
+        text-align: center
+        display: flex
+        align-items: stretch
+    .heroes-list
+        flex: 40%
+        padding: 40px
+        overflow-y: scroll
+        .curr-time
+            color: $themeBlue
+            font-size: 18px
+        h2
+            color: #fff
+            font-size: 22px
+            line-height: 40px
+        .log-line
+            font-size: 18px
+            text-align: left
+            color: #fff
+            background-color: $themeBlue
+            padding: 0 20px
+            line-height: 30px
+            border-bottom: 1px solid #fff
+            display: flex
+            &:hover
+                color: $themeBlue
+                background-color: #fff
+            strong
+                padding-right: 20px
+            .name
+                flex: 1
+                overflow-x: hidden
+            time
+                font-size: 16px
 
-.puzzle-wrap
-    width: 80vh
-    height: 80vh
-    margin-bottom: 20px
-    padding: 0
-    background: #ccc
-    list-style: none
+    .puzzle-wrap
+        width: 40%
+        margin: 20px
+        padding: 0
+        background: #ccc
+        list-style: none
+        position: relative
+        .start-mask
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            background-color: rgba(0, 0, 0, .5)
+            text-align: center
+            .btn-reset
+                margin-top: 45%
+                box-shadow: inset 4px 4px 18px
 
-.puzzle
-    float: left
-    width: 25%
-    height: 25%
-    line-height: 25%
-    font-size: 30px
-    background: $themeBlue
-    color: #fff
-    text-align: center
-    line-height: 100px
-    border: 1px solid #ccc
-    box-shadow: 1px 1px 4px
-    text-shadow: 1px 1px 1px #B9B4B4
-    cursor: pointer
+        .puzzle
+            float: left
+            width: 25%
+            height: 25%
+            line-height: 25%
+            font-size: 30px
+            background: $themeBlue
+            color: #fff
+            text-align: center
+            line-height: 100px
+            border: 1px solid #ccc
+            box-shadow: 1px 1px 4px
+            text-shadow: 1px 1px 1px #B9B4B4
+            cursor: pointer
 
-.puzzle-empty
-    background: #ccc
-    box-shadow: inset 2px 2px 18px
+        .puzzle-empty
+            background: #ccc
+            box-shadow: inset 2px 2px 18px
 
-.btn-reset
-    box-shadow: inset 4px 4px 18px
 
 </style>
 <!--

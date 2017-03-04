@@ -59,9 +59,6 @@ const store = new Vuex.Store({
                 cb && cb()
             })
         },
-        saveGameLog({ commit, state }, { data, cb }) {
-            gameLogApi.addOneLog(data, cb)
-        },
         updateBlog ({ commit, state }, { id, content, cb }) {
             commit('changeLoading', 1)
             blogApi.updateBlog(id, content, () => {
@@ -75,6 +72,12 @@ const store = new Vuex.Store({
                 cb && cb(b)
                 commit('changeLoading', 0)
             })
+        },
+        saveGameLog({ commit, state }, { data, cb }) {
+            gameLogApi.addOneLog(data, cb)
+        },
+        getGameLogs ({ commit, state }, cb) {
+            gameLogApi.fetchList(cb)
         }
     },
     mutations: {
