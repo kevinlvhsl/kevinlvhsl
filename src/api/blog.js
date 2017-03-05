@@ -12,7 +12,7 @@ class Blog extends AV.Object {
     }
 
     addOneBlog (obj, cb) {
-        const blog = new Blog()
+        const blog = new Blog('Blog')
         blog.set('title', obj.title)
         blog.set('category', obj.category)
         blog.set('desc', obj.desc)
