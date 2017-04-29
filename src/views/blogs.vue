@@ -133,8 +133,10 @@ export default {
         .opration-bar
             line-height: 30px
             text-align: center
+            margin-bottom: 6px
             .sort-btn
-                vertical-align: text-bottom
+                vertical-align: middle
+                vertical-align: -webkit-baseline-middle
                 margin-right: 20px
                 color: #A02A1D
                 .el-checkbox__label
